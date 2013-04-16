@@ -1,3 +1,11 @@
+; CJ.ns('CJ');
+
+CJ.Carousel = {
+	Navigation : {},
+	Animation  : {},
+	Renderer   : {}
+}
+
 /*
  * @namespace CJ.Carousel
  * @class Carousel
@@ -32,14 +40,19 @@ CJ.Carousel.Carousel = CJ.extend(CJ.Component, {
 	 * @returns {undefined}
 	 */
 	init : function(config) {
+		this.renderers = this.renderers || {}
 		this.pageSize = this.settings.defaultPageSize || 30;
+
+		this.animator = this.animator || CJ.Carousel.Animation.SlideAnimator;
+		this.navigator = this.navigator || CJ.Carousel.Navigation.ButtonNavigator;
+
 		
-		this.reader = this.createReader();
-		this.animator = this.createAnimator();
+		this.store = this.createStore();
 		this.pageRenderer = this.createPageRenderer();
+		this.animator = this.createAnimator();
 		this.navigator = this.createNavigator();
 		
-		this.reader.setPageLoadCallback({
+		this.store.setPageLoadCallback({
 			success : {
 				fn    : this.onPageLoaded,
 				scope : this
@@ -54,14 +67,19 @@ CJ.Carousel.Carousel = CJ.extend(CJ.Component, {
 		this.isPageSizeChanged = true;
 	},
 	/*
-	 * @returns {CJ.Carousel.FeedbackReader}
+	 * @returns {CJ.Carousel.Feedbackstore}
 	 */ 
-	createReader : function() {
-		return new this.reader({
-				blockId  : this.blockId,
-				pageSize : this.pageSize,
-				carousel : this
-		});
+	createStore : function() {
+		var config = {
+			pageSize : this.pageSize,
+			carousel : this
+		};
+
+		if(this.store instanceof CJ.Carousel.Store) {
+			return CJ.apply(this.store, config);
+		} else {
+			return new CJ.Carousel.Store(CJ.apply(config, this.store));
+		}
 	},
 	/*
 	 * @returns {CJ.Carousel.Animation.SlideAnimator}
@@ -84,8 +102,9 @@ CJ.Carousel.Carousel = CJ.extend(CJ.Component, {
 	 * @returns {CJ.Carousel.Renderer.PageRenderer}
 	 */ 
 	createPageRenderer : function() {
-		return new this.renderer({
+		return this.pageRender || new CJ.Carousel.Renderer.PageRenderer({
 			carousel : this,
+			renderers: this.renderers,
 			settings : this.settings
 		});
 	},
@@ -103,12 +122,17 @@ CJ.Carousel.Carousel = CJ.extend(CJ.Component, {
 	 * @returns {undefined}
 	 */ 
 	onPageLoaded : function(data) {
+		if(!this.rendered) {
+			this.render();
+		}
+
 		this.pageRenderer.reConfigure({
 			pageData : data,
-			cols     : this.cols
+			cols     : this.settings.cols
 		});
 		
 		this.pageRenderer.render(this.el);
+		this.navigator && this.navigator.setValidCls && this.navigator.setValidCls();
 	},
 	/*
 	 * function can contains additional logic,
@@ -132,7 +156,16 @@ CJ.Carousel.Carousel = CJ.extend(CJ.Component, {
 	 * @see Component#createMarkup
 	 */
 	createMarkup : function() {
-		throw "Carousel::createMarkup should be implemented in sub-class";
+		this.el = $(
+			'<div class="cj-carousel-root-' + this.settings.cols + '-cols' + 'this.settings.theme">' +
+				'<div class="cj-carousel-root-wrapper ' + this.settings.theme + '">' +
+					'<ul class="cj-carousel-root ' + this.settings.theme + '"></ul>' +
+				'</div>' +
+		   '</div>'
+		)
+
+		this.el.appendTo(this.parentEl);
+		return this.el;
 	},
 	/*
 	 * @see Component#attachJS
@@ -145,13 +178,8 @@ CJ.Carousel.Carousel = CJ.extend(CJ.Component, {
 	 * @returns {undefined}
 	 */
 	setCarouselWidth : function() {
-		//var pageStyle = this.pageRenderer.getPageStyle();
-		var pageWidth = parseInt(this.pageRenderer.el.css('width'));
-		var pageHeight = this.pageRenderer.el.height();
-		
-		$('.cj-carousel-root', this.parentEl).css({
-			width  : this.reader.size() * pageWidth
-		});
+		var pageWidth = parseInt(this.pageRenderer.el.css('width')),
+			pageHeight = this.pageRenderer.el.height();
 		
 		$('.cj-carousel-root-wrapper', this.parentEl).css({
 			height : pageHeight
@@ -184,8 +212,7 @@ CJ.Carousel.Carousel = CJ.extend(CJ.Component, {
 			return ;
 		}
 		
-		this.reader.getPage(this.getCurrentPageNum());
-		this.navigator && this.navigator.setValidCls && this.navigator.setValidCls();
+		this.getStore().getPage(this.getCurrentPageNum());
 	},
 	/*
 	 * simple setter for Carousel.currentPageNum
@@ -197,10 +224,11 @@ CJ.Carousel.Carousel = CJ.extend(CJ.Component, {
 			return ;
 		}
 		
-		if(newCurrentPageNum >= this.reader.size()) {
+		if(newCurrentPageNum >= this.store.getTotalSize()) {
 			return ;
 		}
-		
+
+		this.oldCurrentPageNum = this.currentPageNum;
 		this.currentPageNum = newCurrentPageNum;
 	},
 	/*
@@ -211,23 +239,23 @@ CJ.Carousel.Carousel = CJ.extend(CJ.Component, {
 	},
 	/*
 	 * fires when page changed via pagination-plugin,
-	 * updates currentPage and request page via Carousel.reader
+	 * updates currentPage and request page via Carousel.store
 	 * @param {Number} newPageNum
 	 * @returns {undefined}
 	 */
 	changePageNum : function(newPageNum) {
         this.setPage(newPageNum -1);
-		this.reader.getPage(this.getCurrentPageNum());
+		this.store.getPage(this.getCurrentPageNum());
 	},
 	/*
-	 * @returns {Number} Carousel.reader current pageSize
+	 * @returns {Number} Carousel.store current pageSize
 	 */
 	getPageSize : function() {
 		if(this.parent && this.parent.pageSizeChanger && this.parent.pageSizeChanger.getCurrentPageSize){
             return this.parent.pageSizeChanger.getCurrentPageSize();
         }
         
-        return this.reader.pageSize;
+        return this.store.pageSize;
 	},
 	/*
 	 * @param {Object} lastPageEl
@@ -248,9 +276,14 @@ CJ.Carousel.Carousel = CJ.extend(CJ.Component, {
 	 * @returns {undefined}
 	 */
 	resetCarousel : function(){
-		this.reader.clear();
+		this.store.clear();
 		$('.cj-carousel-root', this.parentEl).css({left:0});
 	},
+
+	getList: function() {
+		return $('.cj-carousel-root', this.el);
+	},
+
 	/*
 	 * @returns {undefined}
 	 */
@@ -261,9 +294,23 @@ CJ.Carousel.Carousel = CJ.extend(CJ.Component, {
 		}
 	},
 	/*
-	 * @returns {Object} Carousel.reader
+	 * @returns {Object} Carousel.store
 	 */
-	getReader : function(){
-		return this.reader;
+	getStore : function(){
+		return this.store;
+	},
+
+	getPage: function(currentPageNum) {
+		var list = $('.cj-carousel-root li', this.parentEl),
+			el;
+
+		list.each(function(index) {
+			if(currentPageNum == $(this).data("pageNum")) {
+				el = $(this);
+				return false;
+			}
+		});
+
+		return el;
 	}
 });

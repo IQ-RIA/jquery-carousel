@@ -8,24 +8,41 @@ Usage
 -----
 
 #### Example 1 (Simply Way)
-	carousel = new Carousel
-		placeHolder: "#carousel"
-		settings:
-			rows: 1
-			cols: 3
-			theme: "cj-default"
-		store:
-			loadPage: (pageNumber) ->
-				$.ajax
-					type: "GET"
-					url: "server.php"
-					dataType: "json"
-					data: "page=#{pageNumber}"
-					success: $.proxy(@pageLoaded, @)
-					context: @
-		renderers:
-			item:
-				createItem : (item) -> "<span>#{item.title}</span>"
+###### CoffeeScript (/source/coffee/main.coffee)
+	$ ->
+		carousel = new Carousel
+			placeHolder: "#carousel"
+			settings:
+				rows: 1
+				cols: 3
+				theme: "cj-default"
+			store:
+				loadPage: (pageNumber) ->
+					$.ajax
+						type: "GET"
+						url: "server.php"
+						dataType: "json"
+						data: "page=#{pageNumber}"
+						success: $.proxy(@pageLoaded, @)
+						context: @
+			renderers:
+				item:
+					createItem : (item) -> "<span>#{item.title}</span>"
+
+###### HTML Source Code
+	<!DOCTYPE html>
+	<html>
+		<head>
+			<title>Carousel Example</title>
+			<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+			<script type="text/javascript" src="/source/js/carousel-min.js"></script>
+			<script type="text/javascript" src="/source/js/main.js"></script>
+		</head>
+
+		<body>
+			<div id="carousel"></div>
+		</body>
+	</html>
 
 
 	# start carousel
