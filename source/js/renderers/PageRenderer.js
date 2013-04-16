@@ -1,4 +1,4 @@
-CJ.Carousel.Renderer.PageRenderer = Ext.extend(CJ.Carousel.Renderer.AbstractRenderer, {
+CJ.Carousel.Renderer.PageRenderer = CJ.extend(CJ.Carousel.Renderer.AbstractRenderer, {
 	constructor : function(config) {
 		CJ.Carousel.Renderer.PageRenderer.superclass.constructor.call(this, config);
 		this.rowRenderer = this.createRowRenderer();
@@ -11,13 +11,13 @@ CJ.Carousel.Renderer.PageRenderer = Ext.extend(CJ.Carousel.Renderer.AbstractRend
 		});
 	},
 	isAnyPageExists : function(){
-		return $('.s36-carousel-page', this.parentEl).size() != 0;
+		return $('.cj-carousel-page', this.parentEl).size() != 0;
 	},
 	/*
 	 * @returns {HTMLElement|boolean}
 	 */
 	getPageIfExists : function() {
-		var list = $('.s36-carousel-page', this.parentEl);
+		var list = $('.cj-carousel-page', this.parentEl);
 		var findedElement = false;
 		
 		if(list.size() > 0) {
@@ -35,7 +35,7 @@ CJ.Carousel.Renderer.PageRenderer = Ext.extend(CJ.Carousel.Renderer.AbstractRend
 		return findedElement;
 	},
 	reConfigure : function(config) {
-		Ext.apply(this, config)
+		CJ.apply(this, config)
 	},
 	getPageData : function() {
 		return this.pageData;
@@ -46,7 +46,7 @@ CJ.Carousel.Renderer.PageRenderer = Ext.extend(CJ.Carousel.Renderer.AbstractRend
 	getContextEl : function() {
 		var currentPageNum = this.carousel.getCurrentPageNum();
 		
-		var list = $('.s36-carousel-page', this.parentEl);
+		var list = $('.cj-carousel-page', this.parentEl);
 		var contextElement = false;
 			
 		list.reverse().each(function(idx){
@@ -60,6 +60,6 @@ CJ.Carousel.Renderer.PageRenderer = Ext.extend(CJ.Carousel.Renderer.AbstractRend
 		return contextElement;
 	},
 	createPage : function(){
-		return $('<li class="s36-carousel-page '+this.settings.theme+'"></li>');
+		return $('<li class="cj-carousel-page '+this.settings.theme+'"></li>');
 	}
 });

@@ -34,7 +34,7 @@
 		
 		<script type="text/javascript">
 			$(function() {
-				CoolStore = Ext.extend(CJ.Carousel.Store, {
+				CoolStore = CJ.extend(CJ.Carousel.Store, {
 					loadPage: function(pageNumber) {
 						$.ajax({
 							url      : 'server.php',
@@ -47,13 +47,13 @@
 					}
 				})
 
-				Carousel = Ext.extend(CJ.Carousel.Carousel, {
+				Carousel = CJ.extend(CJ.Carousel.Carousel, {
 					store: new CoolStore(),
 					createMarkup: function() {
 						this.el = $(
-							'<div class="s36-carousel-root-' + this.settings.cols + '-cols ' + this.settings.theme + '">'+
-								'<div class="s36-carousel-root-wrapper ' + this.settings.theme + '">'+
-									'<ul class="s36-carousel-root ' + this.settings.theme + '"></ul>'+
+							'<div class="cj-carousel-root-' + this.settings.cols + '-cols ' + this.settings.theme + '">'+
+								'<div class="cj-carousel-root-wrapper ' + this.settings.theme + '">'+
+									'<ul class="cj-carousel-root ' + this.settings.theme + '"></ul>'+
 								'</div>'+
 						   '</div>'
 						);

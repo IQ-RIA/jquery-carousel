@@ -1,4 +1,4 @@
-CJ.Carousel.Renderer.ItemRenderer = Ext.extend(CJ.Carousel.Renderer.AbstractRenderer, {
+CJ.Carousel.Renderer.ItemRenderer = CJ.extend(CJ.Carousel.Renderer.AbstractRenderer, {
 	createMarkup : function() {
 		throw "ItemRenderer::createMarkup should be implemented in sub-class";
 	},

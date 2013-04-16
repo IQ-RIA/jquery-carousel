@@ -5,7 +5,7 @@
  * contains common logic of any control-button for carousel
  *
  */
-CJ.Carousel.Navigation.AbstractButton = Ext.extend(function(){}, {
+CJ.Carousel.Navigation.AbstractButton = CJ.extend(function(){}, {
 	/*
 	 * @constructor
 	 * @param {Object} config
@@ -14,7 +14,7 @@ CJ.Carousel.Navigation.AbstractButton = Ext.extend(function(){}, {
 	 */
 	constructor : function(config) {
 		config = config || {text : ''};
-		Ext.apply(this, config);
+		CJ.apply(this, config);
 	},
 	/*
 	 * function fires after navigation will be rendered

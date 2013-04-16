@@ -1,4 +1,4 @@
-; Ext.ns("CJ");
+; CJ.ns("CJ");
 
 /*
  * @namespace CJ

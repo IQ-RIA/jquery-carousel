@@ -4,7 +4,7 @@
  *
  * contains logic to show new page with fade-animation effect
  */
-CJ.Carousel.Animation.FadeAnimator = Ext.extend(CJ.Carousel.Animation.BaseAnimator, {
+CJ.Carousel.Animation.FadeAnimator = CJ.extend(CJ.Carousel.Animation.BaseAnimator, {
 	/*
 	 * @see CJ.Carousel.Animation.BaseAnimator#afterRun
 	 */

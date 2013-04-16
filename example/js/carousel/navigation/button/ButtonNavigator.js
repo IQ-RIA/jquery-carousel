@@ -4,7 +4,7 @@
  *
  * controller for button navigation
  */
-CJ.Carousel.Navigation.ButtonNavigator = Ext.extend(CJ.Carousel.Navigation.AbstractNavigator,{
+CJ.Carousel.Navigation.ButtonNavigator = CJ.extend(CJ.Carousel.Navigation.AbstractNavigator,{
 
 	constructor: function(config) {
 		config = config || {}

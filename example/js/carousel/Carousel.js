@@ -1,4 +1,4 @@
-; Ext.ns('CJ');
+; CJ.ns('CJ');
 
 CJ.Carousel = {
 	Navigation : {},
@@ -18,7 +18,7 @@ CJ.Carousel = {
  * 3. Can use different types of navigators via inheritance
  * 4. Can use different types of stores via defining required store (ajax, window.name etc)
  */
-CJ.Carousel.Carousel = Ext.extend(CJ.Component, {
+CJ.Carousel.Carousel = CJ.extend(CJ.Component, {
 	/*
 	 * @constructor
 	 * @param {Object} config
@@ -30,7 +30,7 @@ CJ.Carousel.Carousel = Ext.extend(CJ.Component, {
 		config = config || {};
 		this.currentPageNum = config.currentPageNum || 0;
 		
-		Ext.apply(this, config);
+		CJ.apply(this, config);
 		this.init();
 	},
 	/*
@@ -76,9 +76,9 @@ CJ.Carousel.Carousel = Ext.extend(CJ.Component, {
 		};
 
 		if(this.store instanceof CJ.Carousel.Store) {
-			return Ext.apply(this.store, config);
+			return CJ.apply(this.store, config);
 		} else {
-			return new CJ.Carousel.Store(Ext.apply(config, this.store));
+			return new CJ.Carousel.Store(CJ.apply(config, this.store));
 		}
 	},
 	/*
@@ -156,7 +156,16 @@ CJ.Carousel.Carousel = Ext.extend(CJ.Component, {
 	 * @see Component#createMarkup
 	 */
 	createMarkup : function() {
-		throw "Carousel::createMarkup should be implemented in sub-class";
+		this.el = $(
+			'<div class="cj-carousel-root-' + this.settings.cols + '-cols' + 'this.settings.theme">' +
+				'<div class="cj-carousel-root-wrapper ' + this.settings.theme + '">' +
+					'<ul class="cj-carousel-root ' + this.settings.theme + '"></ul>' +
+				'</div>' +
+		   '</div>'
+		)
+
+		this.el.appendTo(this.parentEl);
+		return this.el;
 	},
 	/*
 	 * @see Component#attachJS
@@ -172,11 +181,11 @@ CJ.Carousel.Carousel = Ext.extend(CJ.Component, {
 		var pageWidth = parseInt(this.pageRenderer.el.css('width')),
 			pageHeight = this.pageRenderer.el.height();
 		
-		//$('.s36-carousel-root', this.parentEl).css({
+		//$('.cj-carousel-root', this.parentEl).css({
 		//	width  : pageWidth
 		//});
 		
-		$('.s36-carousel-root-wrapper', this.parentEl).css({
+		$('.cj-carousel-root-wrapper', this.parentEl).css({
 			height : pageHeight
 		});
 	},
@@ -272,11 +281,11 @@ CJ.Carousel.Carousel = Ext.extend(CJ.Component, {
 	 */
 	resetCarousel : function(){
 		this.store.clear();
-		$('.s36-carousel-root', this.parentEl).css({left:0});
+		$('.cj-carousel-root', this.parentEl).css({left:0});
 	},
 
 	getList: function() {
-		return $('.s36-carousel-root', this.el);
+		return $('.cj-carousel-root', this.el);
 	},
 
 	/*
@@ -296,7 +305,7 @@ CJ.Carousel.Carousel = Ext.extend(CJ.Component, {
 	},
 
 	getPage: function(currentPageNum) {
-		var list = $('.s36-carousel-root li', this.parentEl),
+		var list = $('.cj-carousel-root li', this.parentEl),
 			el;
 
 		list.each(function(index) {

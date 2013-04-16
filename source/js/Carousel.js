@@ -10,7 +10,7 @@
  * 3. Can use different types of navigators via inheritance
  * 4. Can use different types of stores via defining required store (ajax, window.name etc)
  */
-CJ.Carousel.Carousel = Ext.extend(CJ.Component, {
+CJ.Carousel.Carousel = CJ.extend(CJ.Component, {
 	/*
 	 * @constructor
 	 * @param {Object} config
@@ -22,7 +22,7 @@ CJ.Carousel.Carousel = Ext.extend(CJ.Component, {
 		config = config || {};
 		this.currentPageNum = config.currentPageNum || 0;
 		
-		Ext.apply(this, config);
+		CJ.apply(this, config);
 		this.init();
 	},
 	/*
@@ -149,11 +149,11 @@ CJ.Carousel.Carousel = Ext.extend(CJ.Component, {
 		var pageWidth = parseInt(this.pageRenderer.el.css('width'));
 		var pageHeight = this.pageRenderer.el.height();
 		
-		$('.s36-carousel-root', this.parentEl).css({
+		$('.cj-carousel-root', this.parentEl).css({
 			width  : this.reader.size() * pageWidth
 		});
 		
-		$('.s36-carousel-root-wrapper', this.parentEl).css({
+		$('.cj-carousel-root-wrapper', this.parentEl).css({
 			height : pageHeight
 		});
 	},
@@ -249,7 +249,7 @@ CJ.Carousel.Carousel = Ext.extend(CJ.Component, {
 	 */
 	resetCarousel : function(){
 		this.reader.clear();
-		$('.s36-carousel-root', this.parentEl).css({left:0});
+		$('.cj-carousel-root', this.parentEl).css({left:0});
 	},
 	/*
 	 * @returns {undefined}

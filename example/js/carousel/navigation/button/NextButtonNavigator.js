@@ -4,7 +4,7 @@
  * 
  * controls actions connected with requesting next page
  */
-CJ.Carousel.Navigation.NextButtonNavigator = Ext.extend(CJ.Carousel.Navigation.AbstractButton, {
+CJ.Carousel.Navigation.NextButtonNavigator = CJ.extend(CJ.Carousel.Navigation.AbstractButton, {
 	/*
 	 * performs initialization for required varialbed like default css-class, and inactive css-class
 	 * @see CJ.Carousel.Navigation.BaseButtonNavigator#constructor
@@ -12,8 +12,8 @@ CJ.Carousel.Navigation.NextButtonNavigator = Ext.extend(CJ.Carousel.Navigation.A
 	constructor : function(config) {
 		CJ.Carousel.Navigation.NextButtonNavigator.superclass.constructor.call(this, config);
 		
-		this.cls = 's36-carousel-navigation-next-btn';
-		this.inactiveCls = 's36-carousel-inactive-next-button';
+		this.cls = 'cj-carousel-navigation-next-btn';
+		this.inactiveCls = 'cj-carousel-inactive-next-button';
 	},
 
 	/*

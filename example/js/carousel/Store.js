@@ -7,7 +7,7 @@ CJ.Carousel.Store = function(config){
 	this.pages = {};
 	this.pageSize = 3;
 
-	Ext.apply(this, config);
+	CJ.apply(this, config);
 }
 
 CJ.Carousel.Store.prototype = {

@@ -1,7 +1,7 @@
-CJ.Carousel.Renderer.RowRenderer = Ext.extend(CJ.Carousel.Renderer.AbstractRenderer, {
+CJ.Carousel.Renderer.RowRenderer = CJ.extend(CJ.Carousel.Renderer.AbstractRenderer, {
 	constructor  : function(config) {
 		CJ.Carousel.Renderer.RowRenderer.superclass.constructor.call(this, config);
-		Ext.apply(this, config.renderers.row || {});
+		CJ.apply(this, config.renderers.row || {});
 
 		this.itemRenderer = this.createItemRenderer();
 		this.children = [this.itemRenderer];
@@ -36,11 +36,11 @@ CJ.Carousel.Renderer.RowRenderer = Ext.extend(CJ.Carousel.Renderer.AbstractRende
 		var colsCount = this.pageRenderer.getColsCount();
 		
 		for(var i=0;i<this.totalRowsPerPage;i++){
-			var currentRowClassName = 's36-carousel-row' + this.getCurrentRowClassName(i) +' '+this.carousel.settings.theme;
+			var currentRowClassName = 'cj-carousel-row' + this.getCurrentRowClassName(i) +' '+this.carousel.settings.theme;
 			var startOffset = i * colsCount;
 			
-			html += '<div class="s36-carousel-row '+currentRowClassName+' '+this.carousel.settings.theme+'"></div>';
-			html += '<div class="s36-carousel-row-clear-fix'+this.getCurrentRowClassName(i)+' '+this.carousel.settings.theme+'"></div>'; //just add clear : both div
+			html += '<div class="cj-carousel-row '+currentRowClassName+' '+this.carousel.settings.theme+'"></div>';
+			html += '<div class="cj-carousel-row-clear-fix'+this.getCurrentRowClassName(i)+' '+this.carousel.settings.theme+'"></div>'; //just add clear : both div
 		}
 		
 		this.parentEl.children().remove();

@@ -1,68 +1,68 @@
-.s36-carousel-root-3-cols.cj-default{
+.cj-carousel-root-3-cols.cj-default{
 	margin: 15px;
 }
 
-.s36-carousel-row-item {
+.cj-carousel-row-item {
 	float  : left;
 	margin : 10px;
 	padding: 10px;
 }
 
-.s36-carousel-row {
+.cj-carousel-row {
 	height: 200px;
 }
 
-.s36-carousel-page {
+.cj-carousel-page {
     float	   : left;
 	width      : 540px; /** should be row-item's width * cols**/
     list-style : none;
 	position   : relative;
 }
 
-.s36-carousel-row-item:hover{
+.cj-carousel-row-item:hover{
 	background-color : #f9f9f9;
 }
 
-.s36-carousel-root-wrapper.cj-default {
+.cj-carousel-root-wrapper.cj-default {
 	position : relative;
 	overflow : hidden;
 	width    : 550px;
 	height   : 200px
 }
 
-.s36-carousel-root.cj-default {
+.cj-carousel-root.cj-default {
 	position : absolute;
     padding  : 0;
 	left     : 0px;
 	width    : 99999999px;
 }
 
-.s36-carousel-row-clear-fix-first.cj-default{
+.cj-carousel-row-clear-fix-first.cj-default{
 	background-color : #c8c8c8;
 }
 
-.s36-carousel-row-clear-fix-last.cj-default{
+.cj-carousel-row-clear-fix-last.cj-default{
 	background-color : #c8c8c8;
 	margin : 10px;
 }
 
-.s36-carousel-row-clear-fix.cj-default{
+.cj-carousel-row-clear-fix.cj-default{
 	background-color : #c8c8c8;
 }
 
-.s36-carousel-row-clear-fix.cj-default,
-.s36-carousel-row-clear-fix-first.cj-default,
-.s36-carousel-row-clear-fix-last.cj-default{
+.cj-carousel-row-clear-fix.cj-default,
+.cj-carousel-row-clear-fix-first.cj-default,
+.cj-carousel-row-clear-fix-last.cj-default{
 	width  : 878px; /**page width**/
 	height : 1px;
 	clear  : both;
 }
 
-.s36-carousel-root-4-cols.cj-default{
+.cj-carousel-root-4-cols.cj-default{
 	margin : 5px;
 }
 
-.s36-carousel-navigation-next-btn{
+.cj-carousel-navigation-next-btn{
 	color : black;
 	background: red;
 	height: 20px;
@@ -70,11 +70,11 @@
 	cursor: pointer;
 }
 
-.s36-carousel-inactive-next-button {
+.cj-carousel-inactive-next-button {
 	background: black;
 }
 
-.s36-carousel-navigation-prev-btn{
+.cj-carousel-navigation-prev-btn{
 	color : black;
 	background: red;
 	height: 20px;
@@ -82,7 +82,7 @@
 	cursor: pointer;
 }
 
-.s36-carousel-inactive-prev-button {
+.cj-carousel-inactive-prev-button {
 	background: black;
 }
 

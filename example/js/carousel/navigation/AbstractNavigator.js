@@ -3,12 +3,12 @@
  *
  * defines common constructor, to avoid code-duplication
  */
-CJ.Carousel.Navigation.AbstractNavigator = Ext.extend(function(){}, {
+CJ.Carousel.Navigation.AbstractNavigator = CJ.extend(function(){}, {
 	/*
 	 * @constructor
 	 * @param {Object|undefined} config 
 	 */
 	constructor : function(config) {
-		Ext.apply(this, config);
+		CJ.apply(this, config);
 	}
 });

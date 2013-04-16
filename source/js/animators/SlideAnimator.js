@@ -4,7 +4,7 @@
  *
  * contains logic to show new page with slide-animation effect
  */
-CJ.Carousel.Animation.SlideAnimator = Ext.extend(CJ.Carousel.Animation.BaseAnimator,{
+CJ.Carousel.Animation.SlideAnimator = CJ.extend(CJ.Carousel.Animation.BaseAnimator,{
 	/*
 	 * @see CJ.Carousel.Animation.BaseAnimator#afterRun
 	 */

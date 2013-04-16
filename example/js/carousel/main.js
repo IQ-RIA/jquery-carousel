@@ -1,4 +1,4 @@
-Ext = {
+CJ = {
     /**
      * The version of the framework
      * @type String
@@ -11,12 +11,12 @@ Ext = {
  * @param {Object} config The source of the properties
  * @param {Object} defaults A different object that will also be applied for default values
  * @return {Object} returns obj
- * @member Ext apply
+ * @member CJ apply
  */
-Ext.apply = function(o, c, defaults){
+CJ.apply = function(o, c, defaults){
     // no "this" reference for friendly out of scope calls
     if(defaults){
-        Ext.apply(o, defaults);
+        CJ.apply(o, defaults);
     }
     if(o && c && typeof c == 'object'){
         for(var p in c){
@@ -25,22 +25,22 @@ Ext.apply = function(o, c, defaults){
     }
     return o;
 };
-Ext.apply(Ext, {
+CJ.apply(CJ, {
 /**
-         * <p>Extends one class to create a subclass and optionally overrides members with the passed literal. This method
+         * <p>CJends one class to create a subclass and optionally overrides members with the passed literal. This method
          * also adds the function "override()" to the subclass that can be used to override members of the class.</p>
-         * For example, to create a subclass of Ext GridPanel:
+         * For example, to create a subclass of CJ GridPanel:
          * <pre><code>
-MyGridPanel = Ext.extend(Ext.grid.GridPanel, {
+MyGridPanel = CJ.extend(CJ.grid.GridPanel, {
     constructor: function(config) {
 
 //      Create configuration for this Grid.
-        var store = new Ext.data.Store({...});
-        var colModel = new Ext.grid.ColumnModel({...});
+        var store = new CJ.data.Store({...});
+        var colModel = new CJ.grid.ColumnModel({...});
 
 //      Create a new config object containing our computed properties
 //      *plus* whatever was in the config parameter.
-        config = Ext.apply({
+        config = CJ.apply({
             store: store,
             colModel: colModel
         }, config);
@@ -85,7 +85,7 @@ MyGridPanel = Ext.extend(Ext.grid.GridPanel, {
             var oc = Object.prototype.constructor;
 
             return function(sb, sp, overrides){
-                if(Ext.isObject(sp)){
+                if(CJ.isObject(sp)){
                     overrides = sp;
                     sp = sb;
                     sb = overrides.constructor != oc ? overrides.constructor : function(){sp.apply(this, arguments);};
@@ -102,14 +102,14 @@ MyGridPanel = Ext.extend(Ext.grid.GridPanel, {
                     spp.constructor=sp;
                 }
                 sb.override = function(o){
-                    Ext.override(sb, o);
+                    CJ.override(sb, o);
                 };
                 sbp.superclass = sbp.supr = (function(){
                     return spp;
                 });
                 sbp.override = io;
-                Ext.override(sb, overrides);
-                sb.extend = function(o){return Ext.extend(sb, o);};
+                CJ.override(sb, overrides);
+                sb.extend = function(o){return CJ.extend(sb, o);};
                 return sb;
             };
         }(),
@@ -117,7 +117,7 @@ MyGridPanel = Ext.extend(Ext.grid.GridPanel, {
         /**
          * Adds a list of functions to the prototype of an existing class, overwriting any existing methods with the same name.
          * Usage:<pre><code>
-Ext.override(MyClass, {
+CJ.override(MyClass, {
     newMethod1: function(){
         // etc.
     },
@@ -134,8 +134,8 @@ Ext.override(MyClass, {
         override : function(origclass, overrides){
             if(overrides){
                 var p = origclass.prototype;
-                Ext.apply(p, overrides);
-                if(Ext.isIE && overrides.hasOwnProperty('toString')){
+                CJ.apply(p, overrides);
+                if(CJ.isIE && overrides.hasOwnProperty('toString')){
                     p.toString = overrides.toString;
                 }
             }

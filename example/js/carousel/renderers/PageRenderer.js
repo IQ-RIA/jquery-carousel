@@ -1,7 +1,7 @@
-CJ.Carousel.Renderer.PageRenderer = Ext.extend(CJ.Carousel.Renderer.AbstractRenderer, {
+CJ.Carousel.Renderer.PageRenderer = CJ.extend(CJ.Carousel.Renderer.AbstractRenderer, {
 	constructor : function(config) {
 		CJ.Carousel.Renderer.PageRenderer.superclass.constructor.call(this, config);
-		Ext.apply(this, config.renderers.page || {});
+		CJ.apply(this, config.renderers.page || {});
 		
 		this.rowRenderer = this.createRowRenderer();
 		this.children = [this.rowRenderer];
@@ -14,13 +14,13 @@ CJ.Carousel.Renderer.PageRenderer = Ext.extend(CJ.Carousel.Renderer.AbstractRend
 		});
 	},
 	isAnyPageExists : function(){
-		return $('.s36-carousel-page', this.parentEl).size() != 0;
+		return $('.cj-carousel-page', this.parentEl).size() != 0;
 	},
 	/*
 	 * @returns {HTMLElement|boolean}
 	 */
 	getPageIfExists : function() {
-		var list = $('.s36-carousel-page', this.parentEl);
+		var list = $('.cj-carousel-page', this.parentEl);
 		var findedElement = false;
 		
 		if(list.size() > 0) {
@@ -38,7 +38,7 @@ CJ.Carousel.Renderer.PageRenderer = Ext.extend(CJ.Carousel.Renderer.AbstractRend
 		return findedElement;
 	},
 	reConfigure : function(config) {
-		Ext.apply(this, config)
+		CJ.apply(this, config)
 	},
 	getPageData : function() {
 		return this.pageData;
@@ -48,7 +48,7 @@ CJ.Carousel.Renderer.PageRenderer = Ext.extend(CJ.Carousel.Renderer.AbstractRend
 	},
 	getContextEl : function() {
 		var currentPageNum = this.carousel.getCurrentPageNum(),
-			list = $('.s36-carousel-page', this.parentEl),
+			list = $('.cj-carousel-page', this.parentEl),
 			position,
 			contextElement = false;
 
@@ -81,7 +81,7 @@ CJ.Carousel.Renderer.PageRenderer = Ext.extend(CJ.Carousel.Renderer.AbstractRend
 		};
 	},
 	createPage : function(){
-		return $('<li class="s36-carousel-page '+this.settings.theme+'"></li>');
+		return $('<li class="cj-carousel-page '+this.settings.theme+'"></li>');
 	},
 	createMarkup : function() {
 		this.rootList = $('li', this.parentEl);
@@ -116,7 +116,7 @@ CJ.Carousel.Renderer.PageRenderer = Ext.extend(CJ.Carousel.Renderer.AbstractRend
 		};
 		
 		this.el = this.createPage();
-		this.el.prependTo($('.s36-carousel-root', this.parentEl)).data('pageNum', this.carousel.getCurrentPageNum());
+		this.el.prependTo($('.cj-carousel-root', this.parentEl)).data('pageNum', this.carousel.getCurrentPageNum());
 		this.renderChildren(this.el);
 		this.carousel.setLastPage(this.el);
 		this.carousel.animator.runWithNewItem(this.carousel.getLastPage(), this.el);

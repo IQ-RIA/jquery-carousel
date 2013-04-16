@@ -5,14 +5,14 @@
  * contains common logic, required to pefroms any type of
  * animation
  */
-CJ.Carousel.Animation.BaseAnimator = Ext.extend(function(){}, {
+CJ.Carousel.Animation.BaseAnimator = CJ.extend(function(){}, {
 	/*
 	 * @constrctor
 	 * @param {Object} config The set of fields that will be applyied to an instance
 	 * @returns {BaseAnimator}
 	 */
 	constructor : function(config) {
-		Ext.apply(this, config);
+		CJ.apply(this, config);
 	},
 	/*
 	 * perfroms pre-initialization

@@ -1,7 +1,7 @@
-CJ.Carousel.Renderer.AbstractRenderer = Ext.extend(CJ.Component,{
+CJ.Carousel.Renderer.AbstractRenderer = CJ.extend(CJ.Component,{
 	constructor : function(config){
 		config = config || {};
-		Ext.apply(this, config);
+		CJ.apply(this, config);
 	},
 	createMarkup : function(){
 		throw "AbstractRenderer::createMarkup must be implemented in sub-class";

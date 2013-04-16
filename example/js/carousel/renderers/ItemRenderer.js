@@ -1,7 +1,7 @@
-CJ.Carousel.Renderer.ItemRenderer = Ext.extend(CJ.Carousel.Renderer.AbstractRenderer, {
+CJ.Carousel.Renderer.ItemRenderer = CJ.extend(CJ.Carousel.Renderer.AbstractRenderer, {
 	constructor: function(config) {
 		CJ.Carousel.Renderer.ItemRenderer.superclass.constructor.call(this, config);
-		Ext.apply(this, config.renderers.item || {});
+		CJ.apply(this, config.renderers.item || {});
 	},
 
 	createMarkup : function() {
@@ -9,14 +9,14 @@ CJ.Carousel.Renderer.ItemRenderer = Ext.extend(CJ.Carousel.Renderer.AbstractRend
 			itemsPerRow = this.pageRenderer.getColsCount(),
 			me = this;
 		
-		$(".s36-carousel-row", this.parentEl.parent()).each(function(idx){
+		$(".cj-carousel-row", this.parentEl.parent()).each(function(idx){
 			var html = '';
 			
 			for(var i=0; i<itemsPerRow; i++) {
 				var item = pageData[i];
 				
 				if('undefined' != typeof item){
-					html += '<div class="s36-carousel-row-item ' + me.carousel.settings.theme+'">' + me.createItem(item) + '</div>';
+					html += '<div class="cj-carousel-row-item ' + me.carousel.settings.theme+'">' + me.createItem(item) + '</div>';
 				}
 			}
 			

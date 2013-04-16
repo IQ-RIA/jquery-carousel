@@ -42,7 +42,7 @@
 
 		<script type="text/javascript">
 			// namespace is defined in this case to make easy change it
-			Ext.ns("CJ.UI");
+			CJ.ns("CJ.UI");
 
 			CJ.UI.Carousel = {
 				Navigation : {},
@@ -56,7 +56,7 @@
 			 *
 			 * class controls forming simple feedback-item
 			 */
-			CJ.UI.Carousel.Renderer.ItemRenderer = Ext.extend(CJ.Carousel.Renderer.ItemRenderer, {
+			CJ.UI.Carousel.Renderer.ItemRenderer = CJ.extend(CJ.Carousel.Renderer.ItemRenderer, {
 				/*
 				 * @see Component#createMarkup
 				 */
@@ -65,14 +65,14 @@
 					var itemsPerRow = this.pageRenderer.getColsCount();
 					var me = this;
 					
-					$('.s36-carousel-row', this.parentEl.parent()).each(function(idx){
+					$('.cj-carousel-row', this.parentEl.parent()).each(function(idx){
 						var html = '';
 						
 						for(var i=0; i<itemsPerRow; i++) {
 							var item = pageData[i];
 							
 							if('undefined' != typeof item){
-								html += '<div class="s36-carousel-row-item '+me.carousel.settings.theme+'">'+me.createItem(item)+'</div>';
+								html += '<div class="cj-carousel-row-item '+me.carousel.settings.theme+'">'+me.createItem(item)+'</div>';
 							}
 						}
 						
@@ -89,11 +89,11 @@
 					var html = '';
 
 		            if(item.title){
-		                html += '<div class="s36-row-item-rating s36-row-item-title-'+this.carousel.settings.theme+'">' + item.title + '</div>';
+		                html += '<div class="cj-row-item-rating cj-row-item-title-'+this.carousel.settings.theme+'">' + item.title + '</div>';
 		            }
 
 		            if(item.description){
-		                html += '<div class="s36-row-item-rating s36-row-item-description-'+this.carousel.settings.theme+'">' + item.description + '</div>';
+		                html += '<div class="cj-row-item-rating cj-row-item-description-'+this.carousel.settings.theme+'">' + item.description + '</div>';
 		            }
 		            
 		            return html;
@@ -106,7 +106,7 @@
 			 *
 			 * class forms carousel-page
 			 */
-			CJ.UI.Carousel.Renderer.PageRenderer = Ext.extend(CJ.Carousel.Renderer.PageRenderer, {
+			CJ.UI.Carousel.Renderer.PageRenderer = CJ.extend(CJ.Carousel.Renderer.PageRenderer, {
 				/*
 				 * @returns {RowRenderer}
 				 */
@@ -145,7 +145,7 @@
 					};
 					
 					this.el = this.createPage();
-					this.el.prependTo($('.s36-carousel-root', this.parentEl)).data('pageNum', this.carousel.getCurrentPageNum());
+					this.el.prependTo($('.cj-carousel-root', this.parentEl)).data('pageNum', this.carousel.getCurrentPageNum());
 					this.renderChildren(this.el);
 					this.carousel.setLastPage(this.el);
 					this.carousel.animator.runWithNewItem(this.carousel.getLastPage(), this.el);
@@ -160,7 +160,7 @@
 			 *
 			 * controls formatting new carousel-page 
 			 */
-			CJ.UI.Carousel.Renderer.RowRenderer = Ext.extend(CJ.Carousel.Renderer.RowRenderer, {
+			CJ.UI.Carousel.Renderer.RowRenderer = CJ.extend(CJ.Carousel.Renderer.RowRenderer, {
 				/*
 				 * @returns {ItemRenderer}
 				 */
@@ -187,11 +187,11 @@
 					var colsCount = this.pageRenderer.getColsCount();
 					
 					for(var i=0;i<this.totalRowsPerPage;i++){
-						var currentRowClassName = 's36-carousel-row' + this.getCurrentRowClassName(i) +' '+this.carousel.settings.theme;
+						var currentRowClassName = 'cj-carousel-row' + this.getCurrentRowClassName(i) +' '+this.carousel.settings.theme;
 						var startOffset = i * colsCount;
 						
-						html += '<div class="s36-carousel-row '+currentRowClassName+' '+this.carousel.settings.theme+'"></div>';
-						html += '<div class="s36-carousel-row-clear-fix'+this.getCurrentRowClassName(i)+' '+this.carousel.settings.theme+'"></div>'; //just add clear : both div
+						html += '<div class="cj-carousel-row '+currentRowClassName+' '+this.carousel.settings.theme+'"></div>';
+						html += '<div class="cj-carousel-row-clear-fix'+this.getCurrentRowClassName(i)+' '+this.carousel.settings.theme+'"></div>'; //just add clear : both div
 					}
 					
 					this.parentEl.children().remove();
@@ -221,14 +221,14 @@
 		<!--<script type='text/javascript' src='js/CarouselBuilder.js'></script>-->
 		<script type="text/javascript">
 
-			CJ.UI.Carousel.Carousel = Ext.extend(CJ.Carousel.Carousel, {
+			CJ.UI.Carousel.Carousel = CJ.extend(CJ.Carousel.Carousel, {
 				/*
 				 * @see Component#createMarkup
 				 */
 				createMarkup : function() {
-					this.el = $('<div class="s36-carousel-root-'+this.cols+'-cols '+this.settings.theme+'">'+
-									'<div class="s36-carousel-root-wrapper '+this.settings.theme+'">'+
-										'<ul class="s36-carousel-root '+this.settings.theme+'"></ul>'+
+					this.el = $('<div class="cj-carousel-root-'+this.cols+'-cols '+this.settings.theme+'">'+
+									'<div class="cj-carousel-root-wrapper '+this.settings.theme+'">'+
+										'<ul class="cj-carousel-root '+this.settings.theme+'"></ul>'+
 									'</div>'+
 							   '</div>');
 					this.el.appendTo(this.parentEl);
@@ -290,7 +290,7 @@
 			});
 		</script>
 	</head>
-	<body class="s36-block">
+	<body class="cj-block">
 		<div id="carousel"></div>
 		<input type='text' name='pageNum' id="pageNum"/>
 		<input type='button' value="go to page" name='goToPageBtn' id="goToPageBtn" />
