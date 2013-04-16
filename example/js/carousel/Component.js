@@ -75,6 +75,8 @@ CJ.Component.prototype = {
 			this.renderChildren();
 		}
 		
+		this.rendered = true;
+
 		return this.afterRender();
 	},
 	/*

@@ -47,20 +47,38 @@ CJ.Carousel.Renderer.PageRenderer = Ext.extend(CJ.Carousel.Renderer.AbstractRend
 		return this.cols || 1;
 	},
 	getContextEl : function() {
-		var currentPageNum = this.carousel.getCurrentPageNum();
-		
-		var list = $('.s36-carousel-page', this.parentEl);
-		var contextElement = false;
-			
-		list.reverse().each(function(idx){
-			var li = $(this);
-			if(currentPageNum > li.data('pageNum')){
+		var currentPageNum = this.carousel.getCurrentPageNum(),
+			list = $('.s36-carousel-page', this.parentEl),
+			position,
+			contextElement = false;
+
+		list.each(function(idx){
+			var li = $(this),
+				liPageNum = li.data('pageNum')-0;
+
+			if(liPageNum > currentPageNum) {
 				contextElement = li;
+				position = "Before";
 				return false;
 			}
 		});
 		
-		return contextElement;
+		list.reverse().each(function(idx){
+			var li = $(this),
+				liPageNum = li.data('pageNum')-0;
+
+			if(currentPageNum > liPageNum) {
+				contextElement = li;
+				position = "After";
+				return false;
+			} 
+		});
+			
+		
+		return {
+			el: contextElement,
+			position: position
+		};
 	},
 	createPage : function(){
 		return $('<li class="s36-carousel-page '+this.settings.theme+'"></li>');
@@ -80,11 +98,18 @@ CJ.Carousel.Renderer.PageRenderer = Ext.extend(CJ.Carousel.Renderer.AbstractRend
 		
 		if(this.isAnyPageExists()) {
 			var contextEl = this.getContextEl(); //find element after witch we should insert new item
-			
+			var lastPage = this.carousel.getLastPage();
+
 			this.el = this.createPage();
-			this.el.insertAfter(contextEl).data('pageNum', this.carousel.getCurrentPageNum());
+			this.el["insert" + contextEl.position](contextEl.el).data('pageNum', this.carousel.getCurrentPageNum());
 			this.renderChildren(this.el);
-			this.carousel.animator.runWithNewItem(this.carousel.getLastPage(), this.el);
+			
+			if(this.carousel.getCurrentPageNum() < lastPage.data("pageNum")) {
+				var list = this.carousel.getList();
+				list.css({left: parseInt(list.css("left")) - this.el.width() })
+			}
+
+			this.carousel.animator.runWithExistingItem(lastPage, this.el);
 			this.carousel.setLastPage(this.el);
 			
 			return this.el;

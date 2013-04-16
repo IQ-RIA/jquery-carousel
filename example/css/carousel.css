@@ -1,10 +1,20 @@
 .s36-carousel-root-3-cols.cj-default{
-	margin:15px;
+	margin: 15px;
+}
+
+.s36-carousel-row-item {
+	float  : left;
+	margin : 10px;
+	padding: 10px;
+}
+
+.s36-carousel-row {
+	height: 200px;
 }
 
 .s36-carousel-page {
     float	   : left;
-	width      : 980px; /** should be row-item * cols + some offset**/
+	width      : 540px; /** should be row-item's width * cols**/
     list-style : none;
 	position   : relative;
 }
@@ -16,19 +26,15 @@
 .s36-carousel-root-wrapper.cj-default {
 	position : relative;
 	overflow : hidden;
-	width    : 950px;
+	width    : 550px;
+	height   : 200px
 }
 
 .s36-carousel-root.cj-default {
 	position : absolute;
     padding  : 0;
 	left     : 0px;
-}
-
-.s36-carousel-row-item {
-	float  : left;
-	margin : 10px;
-	width  : 200px;
+	width    : 99999999px;
 }
 
 .s36-carousel-row-clear-fix-first.cj-default{
@@ -58,8 +64,29 @@
 
 .s36-carousel-navigation-next-btn{
 	color : black;
+	background: red;
+	height: 20px;
+	width: 20px;
+	cursor: pointer;
+}
+
+.s36-carousel-inactive-next-button {
+	background: black;
 }
 
 .s36-carousel-navigation-prev-btn{
 	color : black;
+	background: red;
+	height: 20px;
+	width: 20px;
+	cursor: pointer;
+}
+
+.s36-carousel-inactive-prev-button {
+	background: black;
+}
+
+.main {
+	width: 700px;
+	margin: 0 auto;
 }

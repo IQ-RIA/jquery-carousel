@@ -32,10 +32,6 @@ CJ.Carousel.Carousel = Ext.extend(CJ.Component, {
 		
 		Ext.apply(this, config);
 		this.init();
-
-		if(config.autoRender) {
-			this.render();
-		}
 	},
 	/*
 	 * function performs initialization for carousel
@@ -126,12 +122,17 @@ CJ.Carousel.Carousel = Ext.extend(CJ.Component, {
 	 * @returns {undefined}
 	 */ 
 	onPageLoaded : function(data) {
+		if(!this.rendered) {
+			this.render();
+		}
+
 		this.pageRenderer.reConfigure({
 			pageData : data,
-			cols     : this.cols
+			cols     : this.settings.cols
 		});
 		
 		this.pageRenderer.render(this.el);
+		this.navigator && this.navigator.setValidCls && this.navigator.setValidCls();
 	},
 	/*
 	 * function can contains additional logic,
@@ -168,13 +169,12 @@ CJ.Carousel.Carousel = Ext.extend(CJ.Component, {
 	 * @returns {undefined}
 	 */
 	setCarouselWidth : function() {
-		//var pageStyle = this.pageRenderer.getPageStyle();
-		var pageWidth = parseInt(this.pageRenderer.el.css('width'));
-		var pageHeight = this.pageRenderer.el.height();
+		var pageWidth = parseInt(this.pageRenderer.el.css('width')),
+			pageHeight = this.pageRenderer.el.height();
 		
-		$('.s36-carousel-root', this.parentEl).css({
-			width  : this.store.size() * pageWidth
-		});
+		//$('.s36-carousel-root', this.parentEl).css({
+		//	width  : pageWidth
+		//});
 		
 		$('.s36-carousel-root-wrapper', this.parentEl).css({
 			height : pageHeight
@@ -207,8 +207,7 @@ CJ.Carousel.Carousel = Ext.extend(CJ.Component, {
 			return ;
 		}
 		
-		this.store.getPage(this.getCurrentPageNum());
-		this.navigator && this.navigator.setValidCls && this.navigator.setValidCls();
+		this.getStore().getPage(this.getCurrentPageNum());
 	},
 	/*
 	 * simple setter for Carousel.currentPageNum
@@ -220,10 +219,11 @@ CJ.Carousel.Carousel = Ext.extend(CJ.Component, {
 			return ;
 		}
 		
-		if(newCurrentPageNum >= this.store.size()) {
+		if(newCurrentPageNum >= this.store.getTotalSize()) {
 			return ;
 		}
-		
+
+		this.oldCurrentPageNum = this.currentPageNum;
 		this.currentPageNum = newCurrentPageNum;
 	},
 	/*
@@ -274,6 +274,11 @@ CJ.Carousel.Carousel = Ext.extend(CJ.Component, {
 		this.store.clear();
 		$('.s36-carousel-root', this.parentEl).css({left:0});
 	},
+
+	getList: function() {
+		return $('.s36-carousel-root', this.el);
+	},
+
 	/*
 	 * @returns {undefined}
 	 */
@@ -288,5 +293,19 @@ CJ.Carousel.Carousel = Ext.extend(CJ.Component, {
 	 */
 	getStore : function(){
 		return this.store;
+	},
+
+	getPage: function(currentPageNum) {
+		var list = $('.s36-carousel-root li', this.parentEl),
+			el;
+
+		list.each(function(index) {
+			if(currentPageNum == $(this).data("pageNum")) {
+				el = $(this);
+				return false;
+			}
+		});
+
+		return el;
 	}
 });

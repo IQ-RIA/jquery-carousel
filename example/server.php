@@ -1,5 +1,5 @@
 <?php
-	define('PAGE_SIZE', 10);
+	define('PAGE_SIZE', 3);
 
 	$request = $_GET;
 	
@@ -22,6 +22,7 @@
 	
 	echo json_encode(array(
 		'items' => $result, 
+		'pageSize' => PAGE_SIZE,
 		'pageNum' => $request['page'], 
 		'total' => $total['cnt']
 	));

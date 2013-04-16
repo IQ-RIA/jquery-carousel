@@ -5,7 +5,7 @@
 
 CJ.Carousel.Store = function(config){
 	this.pages = {};
-	this.pageSize = 10;
+	this.pageSize = 3;
 
 	Ext.apply(this, config);
 }
@@ -15,7 +15,7 @@ CJ.Carousel.Store.prototype = {
 		var pageNum = pageNum || 0;
 		// get new portion of date
 		if(!this.pages[pageNum]){
-			this.loadPage(0);
+			this.loadPage(pageNum);
 		} else {
 			this.callSuccessCb(pageNum);
 		}
@@ -58,17 +58,18 @@ CJ.Carousel.Store.prototype = {
 	pageLoaded : function(data) {
 		this.pages[data.pageNum] = data.items;
 		this.totalSize = data.total;
+		this.pageSize = data.pageSize;
 		this.callSuccessCb(data.pageNum);
 	},
 
-	size: function() {
-		return 40;
+	getSize: function() {
+		return this.size;
 	},
 
 	/**
 	 * @returns {Number} PageSize
 	 */
 	getPageSize: function() {
-		this.pageSize;
+		return this.pageSize;
 	}
 }

@@ -39,8 +39,8 @@ CJ.Carousel.Navigation.NextButtonNavigator = Ext.extend(CJ.Carousel.Navigation.A
 	 * @returns {undefined}
 	 */
 	setValidCls : function(){
-		var btn = $('.'+this.cls, this.carousel.el);
-		var pagesLength = Math.ceil(this.carousel.getstore().size()/this.carousel.getstore().getPageSize());
+		var btn = $('.'+this.cls, this.carousel.el),
+			pagesLength = Math.ceil(this.carousel.getStore().getTotalSize() / this.carousel.getStore().getPageSize());
 		
 		if(this.carousel.getCurrentPageNum() == pagesLength-1){
 			btn.addClass(this.inactiveCls);
