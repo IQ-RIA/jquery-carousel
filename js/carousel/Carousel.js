@@ -123,7 +123,7 @@ CJ.Carousel.Carousel = CJ.extend(CJ.Component, {
 	 */ 
 	onPageLoaded : function(data) {
 		if(!this.rendered) {
-			this.render();
+			this.render(this.getPlaceHolder());
 		}
 
 		this.pageRenderer.reConfigure({
@@ -204,7 +204,7 @@ CJ.Carousel.Carousel = CJ.extend(CJ.Component, {
 	 * @param {Number} pageNum The page number that must be requested
 	 * @returns {undefined}
 	 */
-	movePage : function(pageNum) {
+	showPage : function(pageNum) {
 		this.setPage(pageNum);
 		
 		if(this.parent && this.parent.pagination) {
@@ -235,7 +235,7 @@ CJ.Carousel.Carousel = CJ.extend(CJ.Component, {
 	 * @returns {Object} Carousel.el
 	 */
 	getPlaceHolder : function(){
-		return this.el;
+		return $(this.placeholder);
 	},
 	/*
 	 * fires when page changed via pagination-plugin,

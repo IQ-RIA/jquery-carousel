@@ -70,10 +70,6 @@
 	cursor: pointer;
 }
 
-.cj-carousel-inactive-next-button {
-	background: black;
-}
-
 .cj-carousel-navigation-prev-btn{
 	color : black;
 	background: red;
@@ -82,11 +78,12 @@
 	cursor: pointer;
 }
 
+.cj-carousel-inactive-next-button,
 .cj-carousel-inactive-prev-button {
 	background: black;
 }
 
-.main {
-	width: 700px;
-	margin: 0 auto;
+.cj-carousel-navigation-prev-btn,
+.cj-carousel-navigation-next-btn {
+	height: 240px;
 }

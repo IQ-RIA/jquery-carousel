@@ -18,7 +18,6 @@ CJ.Component = function(config) {
 	}
 	
 	this.children = [];
-	this.renderOrder = 'c2p';
 	this.xtype = config.xtype || 'component';
 	
 	this.initComponent(config);
@@ -66,14 +65,9 @@ CJ.Component.prototype = {
 		el = el || 'body';
 		this.parentEl = $(el);
 		this.ct = this.createMarkup();
-		if (this.renderOrder == 'c2p') {
-			this.renderChildren();
-			this.attachJS();
-		}
-		else {
-			this.attachJS();
-			this.renderChildren();
-		}
+
+		this.renderChildren();
+		this.attachJS();
 		
 		this.rendered = true;
 

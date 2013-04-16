@@ -5,12 +5,12 @@ class ClientHelper
 		if disclude.size == 0
 			disclude = nil
 		else
-			disclude = "(#{disclude.join('|')})"
+			disclude = Regexp.new "(#{disclude.join('|')})"
 		end
 
 		result = []
 		Nokogiri::HTML.parse(content).css("script[src]").each do |sc| 
-			if disclude and not sc =~ disclude
+			if disclude and not sc['src'] =~ disclude
 				result << relative_to_path + sc['src'] 
 			end
 		end

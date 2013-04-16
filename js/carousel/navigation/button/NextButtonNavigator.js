@@ -28,11 +28,11 @@ CJ.Carousel.Navigation.NextButtonNavigator = CJ.extend(CJ.Carousel.Navigation.Ab
 	 * @returns {undefined}
 	 */
 	onButtonClick : function(e) {
-		if($(e.target).attr('class').indexOf(this.inactiveCls) != -1){
+		if($(e.target).attr("class").indexOf(this.inactiveCls) != -1){
 			return false;
 		}
 		
-		return this.carousel.movePage(this.carousel.getCurrentPageNum() + 1);
+		return this.carousel.showPage(this.carousel.getCurrentPageNum() + 1);
 	},
 	/*
 	 * applies valid css-class, active or inactive

@@ -32,7 +32,7 @@ CJ.Carousel.Navigation.PrevButtonNavigator = CJ.extend(CJ.Carousel.Navigation.Ab
 			return false;
 		}
 		
-		return this.carousel.movePage(this.carousel.getCurrentPageNum()-1);
+		return this.carousel.showPage(this.carousel.getCurrentPageNum()-1);
 	},
 	/*
 	 * applies valid css-class, active or inactive
