@@ -37,7 +37,7 @@ CJ.Carousel.Navigation.ButtonNavigator = Ext.extend(CJ.Carousel.Navigation.Abstr
 		this.prevButton.afterRender();
 		this.nextButton.afterRender();
 		// attach float:left to the carousel
-		$('.'+this.prevButton.cls).next().css({float:'left'});
+		$('.'+this.prevButton.cls).next().css({"float":'left'});
 		
 		this.setValidCls();
 	},

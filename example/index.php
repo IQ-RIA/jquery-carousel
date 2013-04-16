@@ -4,7 +4,7 @@
 		<link rel='stylesheet' href='css/carousel.css' />
 		
 		<!--js-->
-		<script type='text/javascript' src='js/jquery.js'></script>
+		
 		
 		<script type='text/javascript' src='js/carousel/main.js'></script>
 		<script type='text/javascript' src='js/carousel/Component.js'></script>

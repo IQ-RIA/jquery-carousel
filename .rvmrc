@@ -1,0 +1,2 @@
+rvm use 1.9.3@jq-carousel --create
+rvm gemset import jq-carousel.gems
