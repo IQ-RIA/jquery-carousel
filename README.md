@@ -6,3 +6,4 @@ Is this just yet another jQuery Carousel?
 
 
 ## http://carousel-jquery.demo.iqria.com
+#### Minimized version: http://carousel-jquery.demo.iqria.com/index-prod.php
