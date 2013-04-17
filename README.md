@@ -7,4 +7,4 @@ Is this just yet another jQuery Carousel?
 Usage
 -----
 
-## http://carousel-jquery.demo.iqria.loc/
+## http://carousel-jquery.demo.iqria.com
