@@ -82,7 +82,7 @@ namespace :deploy do
 
   task :change_env do
     db_config = apply_template 'config', 'Configuration'
-    put db_config, "#{application_shared_params_path}/db.php"
+    put db_config, "#{application_shared_params_path}/config.php"
     run %{
       rm #{latest_release}/config.php ;
       ln -sf #{application_shared_params_path}/config.php #{latest_release}/config.php ;
