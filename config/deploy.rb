@@ -43,11 +43,8 @@ set :ssh_options, {
 }
 
 namespace :deploy do
-
   task :permissions do ; end
-
   task :run_migrations do ; end
-
   task :migrate do ; end
 
   desc "Use sudo"
