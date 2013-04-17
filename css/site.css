@@ -5,4 +5,55 @@
 
 .code-example {
 	line-height: 18px;
+	font-size: 14px;
+}
+
+.cj-carousel-navigation-prev-btn,
+.cj-carousel-navigation-next-btn {
+	width: 50px; 
+	border-top: 40px solid transparent;
+	border-bottom: 40px solid transparent; 
+	margin-top: 75px;
+}	
+
+.cj-carousel-navigation-prev-btn {
+	border-right: 25px solid #a2a2a2; 
+}
+
+.cj-carousel-navigation-next-btn {
+	border-left: 25px solid #a2a2a2; 
+}
+
+.cj-carousel-navigation-prev-btn:hover,
+.cj-carousel-navigation-next-btn:hover {
+	border-right-color: #666; 
+	border-left-color: #666; 
+}
+
+.code-example code {
+	font-weight: normal;
+}
+
+.cj-carousel-inactive-next-button,
+.cj-carousel-inactive-prev-button,
+.cj-carousel-inactive-next-button:hover,
+.cj-carousel-inactive-prev-button:hover {
+	border-right-color: #ddd; 
+	border-left-color: #ddd; 
+}
+
+#carousel1 {
+	margin-left: 50px;
+}
+
+#carousel2 {
+	margin-left: 50px;
+}
+
+#carousel2 .cj-carousel-root-wrapper.cj-default {
+	height: 700px;
+}
+
+.cj-carousel-row-item.cj-default img {
+	border: 1px solid #ccc;
 }

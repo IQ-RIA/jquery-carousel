@@ -27,12 +27,13 @@ CJ.Carousel.Carousel = CJ.extend(CJ.Component, {
 	 * @returns {Carousel}
 	 */
 	constructor : function(config){
-		config = config || {};
-		this.currentPageNum = config.currentPageNum || 0;
-		
-		CJ.apply(this, config);
-		this.init();
+		this.init(config || {});
 	},
+
+	getRootEl: function() {
+		return this.el.parent();
+	},
+
 	/*
 	 * function performs initialization for carousel
 	 * @param {Object} config
@@ -40,6 +41,9 @@ CJ.Carousel.Carousel = CJ.extend(CJ.Component, {
 	 * @returns {undefined}
 	 */
 	init : function(config) {
+		CJ.apply(this, config);
+		this.settings = CJ.apply(this.settings || {}, $(this.placeholder).data());
+		this.currentPageNum = 0;
 		this.renderers = this.renderers || {}
 		this.pageSize = this.settings.defaultPageSize || 30;
 
@@ -65,6 +69,10 @@ CJ.Carousel.Carousel = CJ.extend(CJ.Component, {
 		
 		// to reRender and set up valid height and width
 		this.isPageSizeChanged = true;
+
+		if(this.autoLoad) {
+			this.showPage(0);
+		}
 	},
 	/*
 	 * @returns {CJ.Carousel.Feedbackstore}
@@ -157,7 +165,7 @@ CJ.Carousel.Carousel = CJ.extend(CJ.Component, {
 	 */
 	createMarkup : function() {
 		this.el = $(
-			'<div class="cj-carousel-root-' + this.settings.cols + '-cols' + 'this.settings.theme">' +
+			'<div class="cj-carousel-root-' + this.settings.cols + '-cols ' + this.settings.theme + '">' +
 				'<div class="cj-carousel-root-wrapper ' + this.settings.theme + '">' +
 					'<ul class="cj-carousel-root ' + this.settings.theme + '"></ul>' +
 				'</div>' +
@@ -178,12 +186,12 @@ CJ.Carousel.Carousel = CJ.extend(CJ.Component, {
 	 * @returns {undefined}
 	 */
 	setCarouselWidth : function() {
-		var pageWidth = parseInt(this.pageRenderer.el.css('width')),
-			pageHeight = this.pageRenderer.el.height();
+		// var pageWidth = parseInt(this.pageRenderer.el.css('width'));
+		// this.pageHeight = this.pageRenderer.el.height();
 		
-		$('.cj-carousel-root-wrapper', this.parentEl).css({
-			height : pageHeight
-		});
+		// $('.cj-carousel-root-wrapper', this.parentEl).css({
+		// 	height : this.pageHeight
+		// });
 	},
 	/*
 	 * attach navigator if existing
@@ -228,7 +236,6 @@ CJ.Carousel.Carousel = CJ.extend(CJ.Component, {
 			return ;
 		}
 
-		this.oldCurrentPageNum = this.currentPageNum;
 		this.currentPageNum = newCurrentPageNum;
 	},
 	/*

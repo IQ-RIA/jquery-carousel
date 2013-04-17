@@ -39,7 +39,7 @@ CJ.Carousel.Navigation.NextButtonNavigator = CJ.extend(CJ.Carousel.Navigation.Ab
 	 * @returns {undefined}
 	 */
 	setValidCls : function(){
-		var btn = $('.'+this.cls, this.carousel.el),
+		var btn = $('.'+this.cls, this.carousel.getRootEl()),
 			pagesLength = Math.ceil(this.carousel.getStore().getTotalSize() / this.carousel.getStore().getPageSize());
 		
 		if(this.carousel.getCurrentPageNum() == pagesLength-1){

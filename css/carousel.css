@@ -14,26 +14,28 @@
 
 .cj-carousel-page {
     float	   : left;
-	width      : 540px; /** should be row-item's width * cols**/
+	/*width      : 540px;  should be row-item's width * cols**/
     list-style : none;
 	position   : relative;
 }
 
 .cj-carousel-row-item:hover{
 	background-color : #f9f9f9;
+	cursor: pointer;
 }
 
 .cj-carousel-root-wrapper.cj-default {
 	position : relative;
 	overflow : hidden;
-	width    : 550px;
-	height   : 200px
+	width    : 730px;
+	height   : 200px;
 }
 
 .cj-carousel-root.cj-default {
 	position : absolute;
     padding  : 0;
 	left     : 0px;
+	height:  auto;
 	width    : 99999999px;
 }
 
@@ -64,26 +66,12 @@
 
 .cj-carousel-navigation-next-btn{
 	color : black;
-	background: red;
-	height: 20px;
 	width: 20px;
 	cursor: pointer;
 }
 
 .cj-carousel-navigation-prev-btn{
 	color : black;
-	background: red;
-	height: 20px;
 	width: 20px;
 	cursor: pointer;
-}
-
-.cj-carousel-inactive-next-button,
-.cj-carousel-inactive-prev-button {
-	background: black;
-}
-
-.cj-carousel-navigation-prev-btn,
-.cj-carousel-navigation-next-btn {
-	height: 240px;
 }

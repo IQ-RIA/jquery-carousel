@@ -4,8 +4,13 @@
         <link rel='stylesheet' type="text/css" href='css/carousel.css' />
         <link rel="stylesheet" type="text/css" href="css/site.css" />
         <link rel="stylesheet" type="text/css" href="zurb/css/foundation.min.css" />
+        <link rel="stylesheet" type="text/css" href="highlight.js/styles/ascetic.css" />
 
-        <script type="text/javascript" src="js/jquery.js"></script>
+        <script type="text/javascript" src="zurb/js/vendor/jquery.js"></script>
+        <script type="text/javascript" src="zurb/js/foundation.min.js"></script>
+
+        <script type="text/javascript" src="highlight.js/highlight.pack.js"></script>
+        <script type="text/javascript">hljs.initHighlightingOnLoad();</script>
         
         <!--js-->
         <script type='text/javascript' src='js/carousel/main.js'></script>
@@ -36,56 +41,93 @@
         
         <script type="text/javascript">
             $(function() {
-                CoolStore = CJ.extend(CJ.Carousel.Store, {
-                    loadPage: function(pageNumber) {
-                        $.ajax({
-                            url      : 'server.php',
-                            context  : this,
-                            type     : "GET",
-                            data     : 'page='+pageNumber,
-                            dataType : 'json',
-                            success  : $.proxy(this.pageLoaded, this)
-                        });
-                    }
-                })
-
-                Carousel = CJ.extend(CJ.Carousel.Carousel, {
-                    store: new CoolStore(),
-                    createMarkup: function() {
-                        this.el = $(
-                            '<div class="cj-carousel-root-' + this.settings.cols + '-cols ' + this.settings.theme + '">'+
-                                '<div class="cj-carousel-root-wrapper ' + this.settings.theme + '">'+
-                                    '<ul class="cj-carousel-root ' + this.settings.theme + '"></ul>'+
-                                '</div>'+
-                           '</div>'
-                        );
-
-                        this.el.appendTo(this.parentEl);
-                        return this.el;
+                var carousel1 = new CJ.Carousel.Carousel({
+                    placeholder: '#carousel1',
+                    autoLoad: true,
+                    // Store's configuration
+                    store: {
+                        // method loadPage defines how data should be loaded
+                        // from the server
+                        // calling of "pageLoaded"-method is REQUIRED
+                        loadPage: function(pageNumber) {
+                            $.ajax({
+                                url: '/server.php',
+                                type: "GET",
+                                context: this,
+                                data: 'page='+pageNumber,
+                                dataType: 'json',
+                                success: $.proxy(this.pageLoaded, this)
+                            });
+                        }
                     },
                     renderers: {
+                        // ItemRenderer's configuration
                         item: {
+                            // method createItem defines, 
+                            // how items should be displayed
                             createItem : function(item) {
-                                return "<img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIwAAACMCAYAAACuwEE+AAAFJklEQVR4Xu3Y2yvlfRTH8eUUVw53SFKOkTtcCBF/NlLK6coQRZJQzhIXcn76fsvT2I9n7DWmNXt/ev9qmvbspfVbn/Wa/ftuFdfX12/GRQJFJlABmCKToiwnABgguBIAjCsuigGDAVcCgHHFRTFgMOBKADCuuCgGDAZcCQDGFRfFgMGAKwHAuOKiGDAYcCUAGFdcFAMGA64EAOOKi2LAYMCVAGBccVEMGAy4EgCMKy6KAYMBVwKAccVFMWAw4EoAMK64KAYMBlwJAMYVF8WAwYArAcC44qIYMBhwJQAYV1wUAwYDrgQA44qLYsBgwJUAYFxxUQwYDLgSAIwrLooBgwFXAoBxxUUxYDDgSgAwrrgoBgwGXAkAxhUXxYDBgCsBwLjiohgwGHAlABhXXBQDBgOuBADjiotiwGDAlQBgXHFRDBgMuBIAjCsuigGDAVcCgHHFRTFgMOBKADCuuCgGDAZcCQDGFRfFgMGAKwHAuOKiGDAYcCUAGFdcFAMGA64EAOOKi2LAYMCVQFmDOTk5sa2trTzwzMzMfwbf39+39Ofn919fX21nZ8fOzs7s7e3Nmpubrbe31yorK78MLrrflzf0FwrKFszl5aXd39/n5X8G5uXlxZaWluzx8THDeAd1cHBge3t7NjAwkH8ugevp6bH29vZfxh/d7y9YKKpl2YI5PDzMS56dnf0UzPHxsV1dXdnFxcWH91dXV+3u7s4mJiYypMXFRauvr7fh4WFbXl7O/zY6Omrv4Orq6vJ7R0dHf7TfyMhIUQsqtaKyBfMe5Gdg0tLT8ru7u+3Hjx8fwCwsLNjz87NNT09nHPPz81ZVVWVTU1P5MbW5uWmDg4N2c3OTkQwNDVljY+O/e/uT/UoNQzH3Iwnm/Pw8P6rGxsZsbm7uA5jChafXFRUVGVC60ifQ09OTPTw8WEtLi/X393/I8TMw3+lXzJJKqUYSzNramjU1NeVPmMIFf/YJU11dbZOTk3kvafkbGxsZUQJXW1v7JZjv9CslDMXciySYdySFAYyPj+dH1O3t7YczTENDQz6npCs9ktK5Jz2uOjs7raOj40sw3+lXzJJKqUYSzM8BF37CpMPy7u5u/paUUGxvb1tfX5+1tbVZ+ia0vr5uXV1d+dCbvlElSOlQ/Ksz0+/2KyUIxd5L2YL5v//Vhb+PKQSTkKTzzenpac6otbU1P7oSkJWVFaupqbH0DSbVpfNM+ju9To+yz67f7ZceeeV4lS2Ycgxb4Z4Bo7DFwBkAExi2QivAKGwxcAbABIat0AowClsMnAEwgWErtAKMwhYDZwBMYNgKrQCjsMXAGQATGLZCK8AobDFwBsAEhq3QCjAKWwycATCBYSu0AozCFgNnAExg2AqtAKOwxcAZABMYtkIrwChsMXAGwASGrdAKMApbDJwBMIFhK7QCjMIWA2cATGDYCq0Ao7DFwBkAExi2QivAKGwxcAbABIat0AowClsMnAEwgWErtAKMwhYDZwBMYNgKrQCjsMXAGQATGLZCK8AobDFwBsAEhq3QCjAKWwycATCBYSu0AozCFgNnAExg2AqtAKOwxcAZABMYtkIrwChsMXAGwASGrdAKMApbDJwBMIFhK7QCjMIWA2cATGDYCq0Ao7DFwBkAExi2QivAKGwxcAbABIat0AowClsMnAEwgWErtAKMwhYDZwBMYNgKrQCjsMXAGQATGLZCK8AobDFwBsAEhq3QCjAKWwycATCBYSu0AozCFgNnAExg2AqtAKOwxcAZ/gED0OOmRzH/qQAAAABJRU5ErkJggg==' /><br/><span>" + item.title + "</span>"
+                                return [
+                                    '<div class="text-center">' +
+                                        '<img src="http://dummyimage.com/140x150/ffffff/a1a1a1.png"><br/>' +
+                                        '<span>' + item.title + ' # '+ item.itemId + '</span>' +
+                                    '</div>'
+                                ]
                             }
                         }
                     }
                 });
-    
-                var carousel = new Carousel({
-                    placeholder: '#carousel1',
-                    settings: {
-                        rows: 1,
-                        cols: 3,
-                        theme: "cj-default"
+
+                $('.example1').click(function(e){
+                    e.preventDefault();
+                    carousel1.showPage($('#example1').val()-0);
+                });
+
+                var carousel2 = new CJ.Carousel.Carousel({
+                    placeholder: '#carousel2',
+                    autoLoad: true,
+                    // Store's configuration
+                    store: {
+                        // method loadPage defines how data should be loaded
+                        // from the server
+                        // calling of "pageLoaded"-method is REQUIRED
+                        loadPage: function(pageNumber) {
+                            $.ajax({
+                                url: '/server.php',
+                                type: "GET",
+                                context: this,
+                                data: 'pageSize=12&page='+pageNumber,
+                                dataType: 'json',
+                                success: $.proxy(this.pageLoaded, this)
+                            });
+                        }
+                    },
+                    renderers: {
+                        // ItemRenderer's configuration
+                        item: {
+                            // method createItem defines, 
+                            // how items should be displayed
+                            createItem : function(item) {
+                                return [
+                                    '<div class="text-center">' +
+                                        '<img src="http://dummyimage.com/140x150/ffffff/a1a1a1.png"><br/>' +
+                                        '<span>' + item.title + ' # '+ item.itemId + '</span>' +
+                                    '</div>'
+                                ]
+                            }
+                        }
                     }
                 });
-                // shows third page
-                carousel.showPage(2); 
 
-                $('.example1').click(function(){
-                    carousel.showPage($('#example1').val()-0);
+                $('.example2').click(function(e){
+                    e.preventDefault();
+                    carousel2.showPage($('#example2').val()-0);
                 });
+            });
+        </script>
+
+        <script type="text/javascript">
+            $(function() {
+                $(document).foundation();
             });
         </script>
     </head>
@@ -99,47 +141,442 @@
 
         <div class="row">
             <div class="large-12 columns">
-                <div>
-                    <h2>Simple Example 1</h2>
-                    <div class="row">
-                        <div class="large-4 columns">
-                            <p>
-                                Basic example: 
-                                <div class="code-example">
-                                    <pre style="background:#fff;color:#3b3b3b"><span style="color:#ff5600">var</span> carousel <span style="color:#069;font-weight:700">=</span> <span style="color:#069;font-weight:700">new</span> <span style="color:#21439c">Carousel</span>({
-    placeholder: <span style="color:#666">'#carousel1'</span>,
-    settings: {
-        rows: <span style="color:#a8017e">1</span>,
-        cols: <span style="color:#a8017e">3</span>,
-        theme: <span style="color:#666">"cj-default"</span>
-    }
-});
-<span style="color:#af82d4">// shows third page</span>
-carousel.showPage(<span style="color:#a8017e">2</span>); 
-</pre>
-                                </div>
+                <div class="section-container tabs" data-section="tabs">
+                    <section>
+                        <p class="title" data-section-title>
+                            <a href="#">Example 1</a>
+                        </p>
+                        <div class="content" data-section-content>
+                            <h3>Example 1 (Remote Data)</h3>
+
+                            <p class="subheader">
+                                Basic example: Simple 1-row and 4-column carousel, which communicates with server via Ajax.<br/>
                             </p>
-                        </div>
-                        <div class="large-8 columns">
-                            <div class="row">
-                                <div id="carousel1" style="width:700px;height:300px"></div>
-                            </div>
 
                             <div class="row">
-                                <div class="large-4 columns right">
-                                    <div class="row collapse">
-                                        <div class="small-8 columns">
-                                            <input type="text" id="example1" placeholder="Page number">
-                                        </div>
+                                <div class="large-12 columns">
+                                    <div class="row">
+                                        <div id="carousel1" data-rows="1" data-cols="4" data-theme="cj-default"></div>
+                                    </div>
 
-                                        <div class="small-3 columns">
-                                            <a href="#" class="button prefix example1">Go</a>
+                                    <div class="row">
+                                        <div class="large-4 columns right">
+                                            <div class="row collapse">
+                                                <div class="small-8 columns">
+                                                    <input type="text" id="example1" placeholder="Page number">
+                                                </div>
+
+                                                <div class="small-3 columns">
+                                                    <a href="#" class="button prefix example1">Go</a>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
+                                    <hr/>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="large-12 columns">
+                                    
+                                    <h3>HTML</h3>
+                                    <pre class="code-example">
+                                        <code class="">
+&lt;div id=&quot;carousel1&quot; 
+    data-rows=&quot;1&quot; 
+    data-cols=&quot;4&quot; 
+    data-theme=&quot;cj-default&quot;&gt;
+&lt;/div&gt;
+                                        </code>
+                                    </pre>
+                                    <h3>CSS</h3>
+                                    <pre class="code-example">
+                                        <code class="css">
+#carousel1 .cj-carousel-root-wrapper.cj-default {
+    width: 720px;
+    height: 200px;
+}
+                                        </code>
+                                    </pre>
+                                    <h3>JS</h3>
+                                    <pre class="code-example">
+                                        <code>
+$(function() {
+    var carousel = new CJ.Carousel.Carousel({
+        autoLoad: true,
+        placeholder: '#carousel1',
+        // Store's configuration
+        store: {
+            // method loadPage defines how data should be loaded
+            // from the server
+            // calling of "pageLoaded"-method is REQUIRED
+            loadPage: function(pageNumber) {
+                $.ajax({
+                    url: '/server.php',
+                    type: "GET",
+                    context: this,
+                    data: 'page='+pageNumber,
+                    dataType: 'json',
+                    success: $.proxy(this.pageLoaded, this)
+                });
+            }
+        },
+        renderers: {
+            // ItemRenderer's configuration
+            item: {
+                // method createItem defines, 
+                // how items should be displayed
+                createItem : function(item) {
+                    return [
+                        '&lt;div class=&quot;text-center&quot;&gt;' +
+                            '&lt;img src=&quot;http://dummyimage.com/140x150/ffffff/a1a1a1.png&quot;&gt;&lt;br/&gt;' +
+                            '&lt;span&gt;' + item.title + ' # '+ item.itemId + '&lt;/span&gt;' +
+                        '&lt;/div&gt;'
+                    ]
+                }
+            }
+        }
+    });
+
+    $('.example2').click(function(e){
+        e.preventDefault();
+        carousel.showPage($('#example2').val()-0);
+    });
+});
+                                        </code>
+                                    </pre>
                                 </div>
                             </div>
                         </div>
-                    <hr/>
+                    </section>
+
+                    <section>
+                        <p class="title" data-section-title>
+                            <a href="#">Example 2</a>
+                        </p>
+                        <div class="content" data-section-content>
+                            <h3>Example 2 (Remote Data)</h3>
+
+                            <p class="subheader">
+                                Basic example: Simple 3-row and 4-column carousel, which communicates with server via Ajax.<br/>
+                            </p>
+
+                            <div class="row">
+                                <div class="large-12 columns">
+                                    <div class="row">
+                                        <div id="carousel2" data-rows="3" data-cols="4" data-theme="cj-default"></div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="large-4 columns right">
+                                            <div class="row collapse">
+                                                <div class="small-8 columns">
+                                                    <input type="text" id="example2" placeholder="Page number">
+                                                </div>
+
+                                                <div class="small-3 columns">
+                                                    <a href="#" class="button prefix example2">Go</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr/>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="large-12 columns">
+                                    
+                                    <h3>HTML</h3>
+                                    <pre class="code-example">
+                                        <code class="">
+&lt;div id=&quot;carousel1&quot; 
+    data-rows=&quot;3&quot; 
+    data-cols=&quot;4&quot; 
+    data-theme=&quot;cj-default&quot;&gt;
+&lt;/div&gt;
+                                        </code>
+                                    </pre>
+                                    <h3>CSS</h3>
+                                    <pre class="code-example">
+                                        <code class="css">
+#carousel2 .cj-carousel-root-wrapper.cj-default {
+    width: 720px;
+    height: 700px;
+}
+                                        </code>
+                                    </pre>
+                                    <h3>JS</h3>
+                                    <pre class="code-example">
+                                        <code>
+$(function() {
+    var carousel = new CJ.Carousel.Carousel({
+        autoLoad: true,
+        placeholder: '#carousel2',
+        // Store's configuration
+        store: {
+            // method loadPage defines how data should be loaded
+            // from the server
+            // calling of "pageLoaded"-method is REQUIRED
+            loadPage: function(pageNumber) {
+                $.ajax({
+                    url: '/server.php',
+                    type: "GET",
+                    context: this,
+                    data: 'pageSize=12&page='+pageNumber,
+                    dataType: 'json',
+                    success: $.proxy(this.pageLoaded, this)
+                });
+            }
+        },
+        renderers: {
+            // ItemRenderer's configuration
+            item: {
+                // method createItem defines, 
+                // how items should be displayed
+                createItem : function(item) {
+                    return [
+                        '&lt;div class=&quot;text-center&quot;&gt;' +
+                            '&lt;img src=&quot;http://dummyimage.com/140x150/ffffff/a1a1a1.png&quot;&gt;&lt;br/&gt;' +
+                            '&lt;span&gt;' + item.title + ' # '+ item.itemId + '&lt;/span&gt;' +
+                        '&lt;/div&gt;'
+                    ]
+                }
+            }
+        }
+    });
+
+    $('.example1').click(function(e){
+        e.preventDefault();
+        carousel.showPage($('#example2').val()-0);
+    });
+});
+                                        </code>
+                                    </pre>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section>
+                        <p class="title" data-section-title>
+                            <a href="#">Example 1</a>
+                        </p>
+                        <div class="content" data-section-content>
+                            <h3>Example 1 (Remote Data)</h3>
+
+                            <p class="subheader">
+                                Basic example: Simple 1-row and 4-column carousel, which communicates with server via Ajax.<br/>
+                            </p>
+
+                            <div class="row">
+                                <div class="large-12 columns">
+                                    <div class="row">
+                                        <div id="carousel1" data-rows="1" data-cols="4" data-theme="cj-default"></div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="large-4 columns right">
+                                            <div class="row collapse">
+                                                <div class="small-8 columns">
+                                                    <input type="text" id="example1" placeholder="Page number">
+                                                </div>
+
+                                                <div class="small-3 columns">
+                                                    <a href="#" class="button prefix example1">Go</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr/>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="large-12 columns">
+                                    
+                                    <h3>HTML</h3>
+                                    <pre class="code-example">
+                                        <code class="">
+&lt;div id=&quot;carousel1&quot; 
+    data-rows=&quot;1&quot; 
+    data-cols=&quot;4&quot; 
+    data-theme=&quot;cj-default&quot;&gt;
+&lt;/div&gt;
+                                        </code>
+                                    </pre>
+                                    <h3>CSS</h3>
+                                    <pre class="code-example">
+                                        <code class="css">
+.cj-carousel-root-wrapper.cj-default {
+    position : relative;
+    overflow : hidden;
+    width    : 720px;
+    height   : 200px;
+}
+                                        </code>
+                                    </pre>
+                                    <h3>JS</h3>
+                                    <pre class="code-example">
+                                        <code>
+$(function() {
+    var carousel = new CJ.Carousel.Carousel({
+        autoLoad: true,
+        placeholder: '#carousel1',
+        // Store's configuration
+        store: {
+            // method loadPage defines how data should be loaded
+            // from the server
+            // calling of "pageLoaded"-method is REQUIRED
+            loadPage: function(pageNumber) {
+                $.ajax({
+                    url: '/server.php',
+                    type: "GET",
+                    context: this,
+                    data: 'page='+pageNumber,
+                    dataType: 'json',
+                    success: $.proxy(this.pageLoaded, this)
+                });
+            }
+        },
+        renderers: {
+            // ItemRenderer's configuration
+            item: {
+                // method createItem defines, 
+                // how items should be displayed
+                createItem : function(item) {
+                    return [
+                        '&lt;div class=&quot;text-center&quot;&gt;' +
+                            '&lt;img src=&quot;http://dummyimage.com/140x150/ffffff/a1a1a1.png&quot;&gt;&lt;br/&gt;' +
+                            '&lt;span&gt;' + item.title + ' # '+ item.itemId + '&lt;/span&gt;' +
+                        '&lt;/div&gt;'
+                    ]
+                }
+            }
+        }
+    });
+
+    $('.example1').click(function(e){
+        e.preventDefault();
+        carousel.showPage($('#example1').val()-0);
+    });
+});
+                                        </code>
+                                    </pre>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section>
+                        <p class="title" data-section-title>
+                            <a href="#">Example 1</a>
+                        </p>
+                        <div class="content" data-section-content>
+                            <h3>Example 1 (Remote Data)</h3>
+
+                            <p class="subheader">
+                                Basic example: Simple 1-row and 4-column carousel, which communicates with server via Ajax.<br/>
+                            </p>
+
+                            <div class="row">
+                                <div class="large-12 columns">
+                                    <div class="row">
+                                        <div id="carousel1" data-rows="1" data-cols="4" data-theme="cj-default"></div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="large-4 columns right">
+                                            <div class="row collapse">
+                                                <div class="small-8 columns">
+                                                    <input type="text" id="example1" placeholder="Page number">
+                                                </div>
+
+                                                <div class="small-3 columns">
+                                                    <a href="#" class="button prefix example1">Go</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr/>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="large-12 columns">
+                                    
+                                    <h3>HTML</h3>
+                                    <pre class="code-example">
+                                        <code class="">
+&lt;div id=&quot;carousel1&quot; 
+    data-rows=&quot;1&quot; 
+    data-cols=&quot;4&quot; 
+    data-theme=&quot;cj-default&quot;&gt;
+&lt;/div&gt;
+                                        </code>
+                                    </pre>
+                                    <h3>CSS</h3>
+                                    <pre class="code-example">
+                                        <code class="css">
+.cj-carousel-root-wrapper.cj-default {
+    position : relative;
+    overflow : hidden;
+    width    : 720px;
+    height   : 200px;
+}
+                                        </code>
+                                    </pre>
+                                    <h3>JS</h3>
+                                    <pre class="code-example">
+                                        <code>
+$(function() {
+    var carousel = new CJ.Carousel.Carousel({
+        autoLoad: true,
+        placeholder: '#carousel1',
+        // Store's configuration
+        store: {
+            // method loadPage defines how data should be loaded
+            // from the server
+            // calling of "pageLoaded"-method is REQUIRED
+            loadPage: function(pageNumber) {
+                $.ajax({
+                    url: '/server.php',
+                    type: "GET",
+                    context: this,
+                    data: 'page='+pageNumber,
+                    dataType: 'json',
+                    success: $.proxy(this.pageLoaded, this)
+                });
+            }
+        },
+        renderers: {
+            // ItemRenderer's configuration
+            item: {
+                // method createItem defines, 
+                // how items should be displayed
+                createItem : function(item) {
+                    return [
+                        '&lt;div class=&quot;text-center&quot;&gt;' +
+                            '&lt;img src=&quot;http://dummyimage.com/140x150/ffffff/a1a1a1.png&quot;&gt;&lt;br/&gt;' +
+                            '&lt;span&gt;' + item.title + ' # '+ item.itemId + '&lt;/span&gt;' +
+                        '&lt;/div&gt;'
+                    ]
+                }
+            }
+        }
+    });
+
+    $('.example1').click(function(e){
+        e.preventDefault();
+        carousel.showPage($('#example1').val()-0);
+    });
+});
+                                        </code>
+                                    </pre>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
                 </div>
             </div>
         </div>

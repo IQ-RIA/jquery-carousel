@@ -39,7 +39,7 @@ CJ.Carousel.Navigation.PrevButtonNavigator = CJ.extend(CJ.Carousel.Navigation.Ab
 	 * @returns {undefined}
 	 */
 	setValidCls : function(){
-		var btn = $('.'+this.cls, this.carousel.el);
+		var btn = $('.'+this.cls, this.carousel.getRootEl());
 		
 		if(this.carousel.getCurrentPageNum() == 0){
 			btn.addClass(this.inactiveCls);

@@ -1,7 +1,12 @@
 <?php
-	define('PAGE_SIZE', 3);
-
 	$request = $_GET;
+
+	if(isset($request["pageSize"])) {
+		$pageSize = $request["pageSize"];
+	} else {
+		$pageSize = 4;
+	}
+
 	
 	$connection = mysql_connect('localhost', 'root', 'miKe:beWig^lOcos50beT');
 	mysql_select_db('carousel', $connection);
@@ -12,17 +17,17 @@
 	$idf = mysql_query($totalSql, $connection);
 	$total = mysql_fetch_assoc($idf);
 	
-	$startOffset = $request['page'] * PAGE_SIZE;
-	$sql = 'select * from Item limit ' . $startOffset . ',' . PAGE_SIZE;
+	$startOffset = $request['page'] * $pageSize;
+	$sql = 'select * from Item limit ' . $startOffset . ',' . $pageSize;
 	$idf = mysql_query($sql, $connection);
-	
+	$i = 0;
 	while($row = mysql_fetch_assoc($idf)){
 		$result[] = $row;
 	}
 	
 	echo json_encode(array(
 		'items' => $result, 
-		'pageSize' => PAGE_SIZE,
+		'pageSize' => $pageSize,
 		'pageNum' => $request['page'], 
 		'total' => $total['cnt']
 	));
