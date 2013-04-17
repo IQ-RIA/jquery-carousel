@@ -55,3 +55,8 @@
 .cj-carousel-row-item.cj-default img {
 	border: 1px solid #ccc;
 }
+
+#carousel3 .cj-carousel-root-wrapper.cj-default {
+    width: 760px;
+    height: 300px;
+}

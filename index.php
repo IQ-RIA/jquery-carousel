@@ -140,7 +140,7 @@
                     }
 
                     return result;
-                })(50, 4);
+                })(50, 1);
 
                 var carousel3 = new CJ.Carousel.Carousel({
                     placeholder: "#carousel3",
@@ -153,7 +153,7 @@
                         loadPage: function(pageNumber) {
                             this.pageLoaded({
                                 pageNum: pageNumber,
-                                pageSize: 4,
+                                pageSize: 1,
                                 total: data.count,
                                 items: data["page" + pageNumber] || []
                             });
@@ -167,7 +167,7 @@
                             createItem : function(item) {
                                 return [
                                     '<div class="text-center">' +
-                                        '<img src="http://dummyimage.com/140x150/ffffff/a1a1a1.png"><br/>' +
+                                        '<img src="http://dummyimage.com/715x220/ffffff/a1a1a1.png"><br/>' +
                                         '<span>' + item.title + ' # '+ item.itemId + '</span>' +
                                     '</div>'
                                 ]
@@ -424,13 +424,13 @@ $(function() {
                             <h3>Example 3 (Local Data)</h3>
 
                             <p class="subheader">
-                                Basic example: Simple 1-row and 4-column carousel, which shows data from memory<br/>
+                                Basic example: Simple 1-row and 1-column carousel, which shows data from memory<br/>
                             </p>
 
                             <div class="row">
                                 <div class="large-12 columns">
                                     <div class="row">
-                                        <div id="carousel3" data-rows="1" data-cols="4" data-theme="cj-default"></div>
+                                        <div id="carousel3" data-rows="1" data-cols="1" data-theme="cj-default"></div>
                                     </div>
 
                                     <div class="row">
@@ -458,7 +458,7 @@ $(function() {
                                         <code class="">
 &lt;div id=&quot;carousel3&quot; 
     data-rows=&quot;1&quot; 
-    data-cols=&quot;4&quot; 
+    data-cols=&quot;1&quot; 
     data-theme=&quot;cj-default&quot;&gt;
 &lt;/div&gt;
                                         </code>
@@ -467,8 +467,8 @@ $(function() {
                                     <pre class="code-example">
                                         <code class="css">
 #carousel3 .cj-carousel-root-wrapper.cj-default {
-    width: 720px;
-    height: 200px;
+    width: 760px;
+    height: 300px;
 }
                                         </code>
                                     </pre>
@@ -494,7 +494,7 @@ $(function() {
         }
 
         return result;
-    })(50, 4);
+    })(50, 1);
 
     var carousel3 = new CJ.Carousel.Carousel({
         placeholder: &quot;#carousel3&quot;,
@@ -507,7 +507,7 @@ $(function() {
             loadPage: function(pageNumber) {
                 this.pageLoaded({
                     pageNum: pageNumber,
-                    pageSize: 4,
+                    pageSize: 1,
                     total: data.count,
                     items: data[&quot;page&quot; + pageNumber] || []
                 });
@@ -521,7 +521,7 @@ $(function() {
                 createItem : function(item) {
                     return [
                         '&lt;div class=&quot;text-center&quot;&gt;' +
-                            '&lt;img src=&quot;http://dummyimage.com/140x150/ffffff/a1a1a1.png&quot;&gt;&lt;br/&gt;' +
+                            '&lt;img src=&quot;http://dummyimage.com/715x220/ffffff/a1a1a1.png&quot;&gt;&lt;br/&gt;' +
                             '&lt;span&gt;' + item.title + ' # '+ item.itemId + '&lt;/span&gt;' +
                         '&lt;/div&gt;'
                     ]
