@@ -78,12 +78,15 @@ namespace :deploy do
   task :apply_shared_folders do ; end
 
   task :change_env do
-    db_config = apply_template 'config', 'Configuration'
-    put db_config, "#{application_shared_params_path}/config.php"
     run %{
       rm #{latest_release}/config.php ;
       ln -sf #{application_shared_params_path}/config.php #{latest_release}/config.php ;
     }
+  end
+
+  task :create_env do
+    db_config = apply_template 'config', 'Configuration'
+    put db_config, "#{application_shared_params_path}/config.php"
   end
 end
 
@@ -93,10 +96,11 @@ after  "deploy:setup", "deploy:fix_setup_permissions"
 before "deploy:start", "deploy:permissions"
 before "deploy:start", "deploy:apply_db_dump"
 before "deploy:start", "deploy:run_migrations"
-before "deploy:start", "deploy:change_env"
+before "deploy:start", "deploy:create_env"
 
 before "deploy:restart", "deploy:permissions"
 before "deploy:restart", "deploy:run_migrations"
 
+before "deploy:create_symlink", "deploy:change_env"
 after  "deploy:restart", "deploy:cleanup"
 after  "deploy:create_symlink", "deploy:apply_shared_folders"
