@@ -42,11 +42,9 @@
 	border-left-color: #ddd; 
 }
 
-#carousel1 {
-	margin-left: 50px;
-}
-
-#carousel2 {
+#carousel1,
+#carousel2,
+#carousel3 {
 	margin-left: 50px;
 }
 

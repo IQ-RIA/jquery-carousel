@@ -39,7 +39,7 @@ set :default_run_options, { :shell => '/bin/bash', :pty => true }
 set :ssh_options, {
     :keys => [
         File.join(ENV["HOME"], '.ssh', 'iqria_demo')
-    ]
+    ], :forward_agent => true
 }
 
 namespace :deploy do
