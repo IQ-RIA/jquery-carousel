@@ -96,10 +96,10 @@ after  "deploy:setup", "deploy:fix_setup_permissions"
 before "deploy:start", "deploy:permissions"
 before "deploy:start", "deploy:apply_db_dump"
 before "deploy:start", "deploy:run_migrations"
+before "deploy:start", "deploy:change_env"
 
 before "deploy:restart", "deploy:permissions"
 before "deploy:restart", "deploy:run_migrations"
 
 after  "deploy:restart", "deploy:cleanup"
-before "deploy:create_symlink", "deploy:change_env"
 after  "deploy:create_symlink", "deploy:apply_shared_folders"
