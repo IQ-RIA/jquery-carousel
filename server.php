@@ -8,7 +8,7 @@
 	}
 
 	
-	$connection = mysql_connect('localhost', 'root', 'miKe:beWig^lOcos50beT');
+	$connection = mysql_connect('localhost', 'root', '23');
 	mysql_select_db('carousel', $connection);
 	
 	$result = array();

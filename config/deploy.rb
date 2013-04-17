@@ -21,7 +21,7 @@ end
 
 set :application, "carousel.jquery"
 set :scm, :git
-set :repository, 'git@gitlab.iqria.com:test-result.git'
+set :repository, 'git@github.com:IQ-RIA/jquery-carousel.git'
 
 role :web, "10.80.80.72"                          # Your HTTP server, Apache/etc
 role :app, "10.80.80.72"                          # This may be the same as your `Web` server
@@ -69,6 +69,11 @@ namespace :deploy do
   end
 
   task :apply_db_dump do
+    set(:database_user) { Capistrano::CLI.password_prompt("Database username: ") }
+    set(:database_password) { Capistrano::CLI.password_prompt("Database password: ") }
+    set(:database_name) { Capistrano::CLI.password_prompt("Database name: ") }
+    
+    run "mysql -u#{database_user} -p#{database_password} #{database_name} < #{latest_release}/data/ts.sql"
   end
 
   task :apply_shared_folders do ; end
