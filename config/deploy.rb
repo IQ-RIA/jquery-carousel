@@ -1,4 +1,5 @@
 CURRENT_DIR = File.dirname(__FILE__)
+require "#{CURRENT_DIR}/erb_helper"
 require "#{CURRENT_DIR}/client_helper"
 
 namespace :code do
@@ -32,6 +33,7 @@ set :keep_releases, 2
 set :use_sudo, false
 set :deploy_via, :remote_cache
 set :deploy_to, "/var/www/html/#{application}.demo.iqria.com"
+set :application_shared_params_path, "#{deploy_to}/shared"
 
 set :default_run_options, { :shell => '/bin/bash', :pty => true }
 set :ssh_options, {
@@ -73,10 +75,19 @@ namespace :deploy do
     set(:database_password) { Capistrano::CLI.password_prompt("Database password: ") }
     set(:database_name) { Capistrano::CLI.password_prompt("Database name: ") }
     
-    run "mysql -u#{database_user} -p#{database_password} #{database_name} < #{latest_release}/data/ts.sql"
+    run "mysql -u#{database_user} -p#{database_password} #{database_name} < #{latest_release}/db.sql"
   end
 
   task :apply_shared_folders do ; end
+
+  task :change_env do
+    db_config = apply_template 'config', 'Configuration'
+    put db_config, "#{application_shared_params_path}/db.php"
+    run %{
+      rm #{latest_release}/config.php ;
+      ln -sf #{application_shared_params_path}/config.php #{latest_release}/config.php ;
+    }
+  end
 end
 
 before "deploy:setup", "deploy:use_sudo"
@@ -90,4 +101,5 @@ before "deploy:restart", "deploy:permissions"
 before "deploy:restart", "deploy:run_migrations"
 
 after  "deploy:restart", "deploy:cleanup"
+before "deploy:create_symlink", "deploy:change_env"
 after  "deploy:create_symlink", "deploy:apply_shared_folders"

@@ -1,4 +1,6 @@
 <?php
+	include_once "./config.php";
+	
 	$request = $_GET;
 
 	if(isset($request["pageSize"])) {
@@ -8,7 +10,7 @@
 	}
 
 	
-	$connection = mysql_connect('localhost', 'root', '23');
+	$connection = mysql_connect('localhost', DATABASE_USER, DATABASE_PASSWORD);
 	mysql_select_db('carousel', $connection);
 	
 	$result = array();
