@@ -67,11 +67,11 @@
                             // how items should be displayed
                             createItem : function(item) {
                                 return [
-                                    '<div class="text-center">' +
-                                        '<img src="http://dummyimage.com/140x150/ffffff/a1a1a1.png"><br/>' +
-                                        '<span>' + item.title + ' # '+ item.itemId + '</span>' +
+                                    '<div class="text-center">',
+                                        '<img src="http://dummyimage.com/140x150/ffffff/a1a1a1.png"><br/>',
+                                        '<span>' + item.title + ' # '+ item.itemId + '</span>',
                                     '</div>'
-                                ]
+                                ].join("")
                             }
                         }
                     }
@@ -108,11 +108,11 @@
                             // how items should be displayed
                             createItem : function(item) {
                                 return [
-                                    '<div class="text-center">' +
-                                        '<img src="http://dummyimage.com/140x150/ffffff/a1a1a1.png"><br/>' +
-                                        '<span>' + item.title + ' # '+ item.itemId + '</span>' +
+                                    '<div class="text-center">',
+                                        '<img src="http://dummyimage.com/140x150/ffffff/a1a1a1.png"><br/>',
+                                        '<span>' + item.title + ' # '+ item.itemId + '</span>',
                                     '</div>'
-                                ]
+                                ].join("")
                             }
                         }
                     }
@@ -228,11 +228,11 @@ $(function() {
                 // how items should be displayed
                 createItem : function(item) {
                     return [
-                        '&lt;div class=&quot;text-center&quot;&gt;' +
-                            '&lt;img src=&quot;http://dummyimage.com/140x150/ffffff/a1a1a1.png&quot;&gt;&lt;br/&gt;' +
-                            '&lt;span&gt;' + item.title + ' # '+ item.itemId + '&lt;/span&gt;' +
+                        '&lt;div class=&quot;text-center&quot;&gt;',
+                            '&lt;img src=&quot;http://dummyimage.com/140x150/ffffff/a1a1a1.png&quot;&gt;&lt;br/&gt;',
+                            '&lt;span&gt;' + item.title + ' # '+ item.itemId + '&lt;/span&gt;',
                         '&lt;/div&gt;'
-                    ]
+                    ].join("")
                 }
             }
         }
@@ -336,11 +336,11 @@ $(function() {
                 // how items should be displayed
                 createItem : function(item) {
                     return [
-                        '&lt;div class=&quot;text-center&quot;&gt;' +
-                            '&lt;img src=&quot;http://dummyimage.com/140x150/ffffff/a1a1a1.png&quot;&gt;&lt;br/&gt;' +
-                            '&lt;span&gt;' + item.title + ' # '+ item.itemId + '&lt;/span&gt;' +
+                        '&lt;div class=&quot;text-center&quot;&gt;',
+                            '&lt;img src=&quot;http://dummyimage.com/140x150/ffffff/a1a1a1.png&quot;&gt;&lt;br/&gt;',
+                            '&lt;span&gt;' + item.title + ' # '+ item.itemId + '&lt;/span&gt;',
                         '&lt;/div&gt;'
-                    ]
+                    ].join("")
                 }
             }
         }
@@ -446,11 +446,11 @@ $(function() {
                 // how items should be displayed
                 createItem : function(item) {
                     return [
-                        '&lt;div class=&quot;text-center&quot;&gt;' +
-                            '&lt;img src=&quot;http://dummyimage.com/140x150/ffffff/a1a1a1.png&quot;&gt;&lt;br/&gt;' +
-                            '&lt;span&gt;' + item.title + ' # '+ item.itemId + '&lt;/span&gt;' +
+                        '&lt;div class=&quot;text-center&quot;&gt;',
+                            '&lt;img src=&quot;http://dummyimage.com/140x150/ffffff/a1a1a1.png&quot;&gt;&lt;br/&gt;',
+                            '&lt;span&gt;' + item.title + ' # '+ item.itemId + '&lt;/span&gt;',
                         '&lt;/div&gt;'
-                    ]
+                    ].join("")
                 }
             }
         }
@@ -556,11 +556,11 @@ $(function() {
                 // how items should be displayed
                 createItem : function(item) {
                     return [
-                        '&lt;div class=&quot;text-center&quot;&gt;' +
-                            '&lt;img src=&quot;http://dummyimage.com/140x150/ffffff/a1a1a1.png&quot;&gt;&lt;br/&gt;' +
-                            '&lt;span&gt;' + item.title + ' # '+ item.itemId + '&lt;/span&gt;' +
+                        '&lt;div class=&quot;text-center&quot;&gt;',
+                            '&lt;img src=&quot;http://dummyimage.com/140x150/ffffff/a1a1a1.png&quot;&gt;&lt;br/&gt;',
+                            '&lt;span&gt;' + item.title + ' # '+ item.itemId + '&lt;/span&gt;',
                         '&lt;/div&gt;'
-                    ]
+                    ].join("")
                 }
             }
         }
