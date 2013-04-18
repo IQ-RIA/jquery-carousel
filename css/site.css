@@ -42,11 +42,9 @@
 	border-left-color: #ddd; 
 }
 
-#carousel1 {
-	margin-left: 50px;
-}
-
-#carousel2 {
+#carousel1,
+#carousel2,
+#carousel3 {
 	margin-left: 50px;
 }
 
@@ -56,4 +54,9 @@
 
 .cj-carousel-row-item.cj-default img {
 	border: 1px solid #ccc;
+}
+
+#carousel3 .cj-carousel-root-wrapper.cj-default {
+    width: 760px;
+    height: 300px;
 }

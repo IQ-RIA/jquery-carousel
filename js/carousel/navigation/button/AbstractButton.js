@@ -23,6 +23,8 @@ CJ.Carousel.Navigation.AbstractButton = CJ.extend(function(){}, {
 	 * @returns {undefined}
 	 */
 	afterRender : function() {
-		$('.'+this.cls).css({"float" : 'left'}).click($.proxy(this.onButtonClick, this));
+		$('.'+this.cls, this.carousel.getRootEl()).css({
+			"float" : 'left'
+		}).click($.proxy(this.onButtonClick, this));
 	}
 });
